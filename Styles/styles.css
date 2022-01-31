@@ -1,0 +1,26 @@
+/* p {
+    * {} --> 0
+
+    type selector(nome de tags) --> 1
+
+    classes --> 10
+
+    ID --> 100
+
+    inline styles --> 1000
+
+} */
+
+/* 100 points */
+#second {
+    color: yellow;
+}
+
+/* 11 points */
+p.firstParagraph {
+    color: blue;
+}
+
+p {
+    color: red;
+}
