@@ -38,6 +38,28 @@
             background: blue;
         }
 
+        li:first-child {
+            background-color: blue;
+        }
+
+        li::after{
+            content: 'after';
+            background: red;
+        }
+
+        li::before {
+            content: 'before';
+            background: red;
+        }
+
+        div:not(.red,[data-red]) {
+            font-size: 30px;
+        }
+    
+        [data-red] {
+            background: blue;
+        }
+
     </style>
 </head>
 <body>
@@ -45,6 +67,7 @@
 
     <input type="checkbox">
     <div class="red">This a div</div>
+    <div data-red>This a test div</div>
     <span>This a span</span>
     <div>
         <span>
