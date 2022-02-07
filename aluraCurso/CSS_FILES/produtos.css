@@ -27,3 +27,65 @@ nav a {
     font-size: 22px;/* Tamanho da nossas letras*/
     text-decoration: none;/* Retirar o sublinhado da nossa tag a*/
 }
+
+nav a:hover {
+    color: #C78C19;
+    text-decoration: underline;
+}
+
+.produtos {
+    width: 940px; /* tamanho do nosso elemento */
+    margin: 0 auto; /* margin de 0 para cima e para baixo e auto dos lados */
+    padding: 50px 0; /* espaçamento interno */
+}
+
+.produtos li {
+    display: inline-block; /* colocar os elementos em inline_block */
+    text-align: center; /* colocar os itens alinhados ao meio */
+    width: 30%; /* largura de 30% */
+    vertical-align: top;/* alinhamento do componente ao topo */
+    margin: 0 1.5%;/* margin de 0px de cima e baixo e espaçamento de 1.5% de lado */
+    padding: 30px 20px;/* espaçamento interno */
+    box-sizing: border-box;/* configuração para nosso espaçamento lateral esteja dentro do percentual*/
+    border: 2px solid black;/* borda com 2px de largura, solida e de cor preta */
+    border-radius: 10px;/* raio da nossa borda */
+}
+
+.produtos li:hover {
+    border-color: #C78C19;  
+}
+
+.produtos li:hover h2 {
+    font-size: 34px;
+}
+
+.produtos li:active {
+    border-color: #088C19;
+}
+
+.produtos h2 {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.produto-descricao {
+    font-size: 18px;
+}
+
+.produto-preco {
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+footer {
+    text-align: center;
+    background: url("../images/produtos_images/bg.jpg");
+    padding: 40px 0;
+}
+
+.copyright {
+    color: white;
+    font-size: 13px;
+    margin-top: 20px;
+}
