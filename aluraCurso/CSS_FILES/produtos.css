@@ -1,0 +1,29 @@
+header {
+    background: #BBBBBB; /* Cor de fundo */
+    padding: 20px 0; /* Espaçamento interno de 20 px para cima e para baixo e 0 para direita e para esquerda */
+}
+
+.caixa {
+    position: relative; /* Posicionamento relativo */
+    width: 940px; /* Tamanho de largura */
+    margin: 0 auto; /* margem de 0 na parte superior e automatico no lado direito e esquerdo */
+}
+
+nav {
+    position: absolute; /* Posicionamento que coloca o elemento em absoluto movimento em relação a nosso ambiente, como nossa div de controle está relativo, ele vai ser absoluto em relação a ela */
+    top: 110px; /* Espaçamento superior */
+    right: 0px; /* Espaçamento a direita */
+}
+
+nav li {
+    display: inline;/* Colocar para o elemento ficar do tamanho certo dele mesmo*/
+    margin: 0 0 0 15px; /* Espaçamento externo */
+}
+
+nav a {
+    text-transform: uppercase; /* Colocar tudo em letra maiuscula*/
+    color: black; /* Cor das letras*/
+    font-weight: bold; /* Peso das letras, bold coloca em negrito*/
+    font-size: 22px;/* Tamanho da nossas letras*/
+    text-decoration: none;/* Retirar o sublinhado da nossa tag a*/
+}
