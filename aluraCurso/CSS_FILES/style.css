@@ -1,3 +1,7 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
 header {
     background: #BBBBBB; /* Cor de fundo */
     padding: 20px 0; /* Espaçamento interno de 20 px para cima e para baixo e 0 para direita e para esquerda */
@@ -90,10 +94,6 @@ footer {
     margin-top: 20px; /* margem da parte superior */
 }
 
-main{
-    width: 940px; /* Tamanho do nosso elemento */
-    margin: 0 auto; /* Margem de cima e baixo 0 e da esquerda e direita automaticos */
-}
 
 form {
     margin: 40px 0; /* Margem de cima e em baixo 40 px e em cima e em baixo 0 */
@@ -162,6 +162,14 @@ td, th {
     clear: left;
 }
 
+
+.principal {
+    padding: 3em 0;
+    background: #FEFEFE;
+    width: 940px; /* Tamanho do nosso elemento */
+    margin: 0 auto; /* Margem de cima e baixo 0 e da esquerda e direita automaticos */
+}
+
 .principal p {
     margin: 0 0 1em; /* Criando uma margem proporcional a nossa página */ 
 }
@@ -180,6 +188,55 @@ td, th {
     margin: 0 20px 20px 0;
 }
 
-.imagembeneficios {
+.mapa {
+    padding: 3em 0;
+    background: linear-gradient(#fefefe, #888888);
+}
+
+.mapa-conteudo {
+    width: 940px; /* Tamanho do nosso elemento */
+    margin: 0 auto; /* Margem de cima e baixo 0 e da esquerda e direita automaticos */
+}
+
+.mapa p {
+    margin: 0 0 2em;
+    text-align: center;
+}
+
+.beneficios {
+    padding: 3em 0;
+    background: #888888;
+    
+}
+
+.conteudo-beneficios {
+    width: 640px;
+    margin: 0 auto;
+}
+
+.lista-beneficios {
+    width: 40%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.itens {
+    line-height: 1.5;
+}
+
+.itens:first-child {
+    font-weight: bold;
+}
+
+.itens:before {
+    content: "★";
+}
+
+.imagem-beneficios {
     width: 60%;
+}
+
+.video {
+    width: 560px;
+    margin: 2em auto;
 }
