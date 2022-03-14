@@ -1,5 +1,4 @@
 const h1 = document.querySelector(".titulo");
-const button = document.querySelector("#adicionar-paciente");
 h1.textContent = "Aparecida Nutricionista";
 
 const pacientes = document.querySelectorAll(".paciente");
@@ -15,17 +14,17 @@ for (let i = 0; i < pacientes.length; i++) {
 
     const tdIMC = paciente.querySelector(".info-imc");
 
-    let pesoIsValid = true;
-    let alturaIsValid = true;
+    let pesoIsValid = validaPeso(peso);
+    let alturaIsValid = validaAltura(altura);
 
-    if (peso <= 0 || peso >= 1000) {
+    if (!pesoIsValid) {
         console.log("Peso invalido");
         tdIMC.textContent = "Peso invalido";
         pesoIsValid = false;
         paciente.classList.add("paciente-invalido");
     }
 
-    if (altura <= 0 || altura >= 3.0) {
+    if (!alturaIsValid) {
         console.log("Altura invalida");
         tdIMC.textContent = "altura invalida";
         alturaIsValid = false;
@@ -33,15 +32,34 @@ for (let i = 0; i < pacientes.length; i++) {
     }
 
     if (pesoIsValid && alturaIsValid) {
-        let imcCalculo = peso / (altura * altura);
-        tdIMC.textContent = imcCalculo.toFixed(2);
+        let imcCalculo = calculaIMC(peso, altura);
+        tdIMC.textContent = imcCalculo;
     }
 }
 
-button.addEventListener("click", function (event) {
-    event.preventDefault();
-    console.log("fui clickado")
-});
+function calculaIMC (peso, altura) {
+    let imc = 0;
+
+    imc = peso / (altura * altura);
+    return imc.toFixed(2);
+}
+
+function validaPeso (peso) {
+    if (peso >= 0 && peso <= 1000) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function validaAltura (altura) {
+    if (altura >= 0 && altura <= 3.0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
 // Usando forEach para a condição
 // pacientes.forEach((paciente) => {

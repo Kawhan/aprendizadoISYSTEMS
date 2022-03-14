@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <button class="botao">Calcula</button>
+    <input class="numero">
+    <input class="tabuada">
+    <span class="resultado"></span>
+
+    <!-- <script>
+
+        var botao = document.querySelector('.botao');
+        var numero = document.querySelector('.numero');
+        var tabuada = document.querySelector('.tabuada');
+        var resultado = document.querySelector('.resultado');
+
+        botao.addEventListener('click', function () {
+
+            resultado.textContent = numero.value * tabuada.value;
+
+        });
+
+
+    </script> -->
+
+    <script>
+
+        function buscaElemento(seletor) {
+            return document.querySelector(seletor);
+        }
+    
+        var botao = buscaElemento('.botao');
+        var numero = buscaElemento('.numero');
+        var tabuada = buscaElemento('.tabuada');
+        var resultado = buscaElemento('.resultado');
+    
+        botao.addEventListener('click', function() {
+    
+            resultado.textContent = numero.value * tabuada.value;
+    
+        });
+    
+    
+    </script>
+</body>
+
+</html>
