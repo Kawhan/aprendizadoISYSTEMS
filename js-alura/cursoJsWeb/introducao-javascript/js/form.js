@@ -4,27 +4,32 @@ button.addEventListener("click", function (event) {
     event.preventDefault();
     
     const form = document.querySelector("#form-adiciona");
-
+    const mensagem = document.querySelector("#mensagem-erro")
     
 
 
     // Extraindo informações do paciente do form
     const paciente = obtemPacienteFormulario(form);
 
-    if (!validaPaciente(paciente)) {
-        console.log("Paciente invalido");
-        return;
-    }
 
     // Cria os tr e os td
     const trMontada = montaTr(paciente);
 
+    let erros = validaPaciente(paciente);
+
+    if (erros.length > 0) {
+        exibeMensagemDeErro(erros);
+        return;
+    }
+
     // Adicionando o paciente na tabela
     const tabela = document.querySelector("#tabela-pacientes");
+    const ul = document.querySelector("#mensagens-erro")
     tabela.appendChild(trMontada);
 
     // limpar campos
     form.reset();
+    ul.innerHTML = "";
 });
 
 function obtemPacienteFormulario (form) {
@@ -70,9 +75,44 @@ function montaTd (dado, classe) {
 }
 
 function validaPaciente (paciente) {
-    if(validaPeso(paciente.peso)) {
-        return true;
-    }else {
-        return false;
+
+    const erros = [];
+
+    if(!validaPeso(paciente.peso)) {
+        erros.push("Peso é invalido");
     }
+
+    if(!validaAltura(paciente.altura)) {
+        erros.push("Altura é invalida");
+    }
+
+    if (paciente.nome.length == 0) {
+        erros.push("O nome não pode ser em branco!");
+    }
+
+    if (paciente.gordura.length == 0) {
+        erros.push("A Gordura não pode ser em branco!");
+    }
+
+    if (paciente.peso.length == 0) {
+        erros.push(" O Peso não pode ser em branco!");
+    }
+
+    if (paciente.altura.length == 0) {
+        erros.push("A Altura não pode ser em branco!");
+    }
+
+    return erros;
+}
+
+function exibeMensagemDeErro(erros) {
+    const ul = document.querySelector("#mensagens-erro");
+    ul.innerHTML = "";
+
+    erros.forEach(function (erro) {
+        const li = document.createElement("li");
+
+        li.textContent = erro;
+        ul.appendChild(li)
+    });
 }
