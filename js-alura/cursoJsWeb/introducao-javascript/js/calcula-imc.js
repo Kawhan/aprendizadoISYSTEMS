@@ -37,6 +37,7 @@ for (let i = 0; i < pacientes.length; i++) {
     }
 }
 
+// Função para calcularIMC
 function calculaIMC (peso, altura) {
     let imc = 0;
 
@@ -44,6 +45,8 @@ function calculaIMC (peso, altura) {
     return imc.toFixed(2);
 }
 
+
+// Função para validarPeso
 function validaPeso (peso) {
     if (peso >= 0 && peso <= 1000) {
         return true;
@@ -52,6 +55,7 @@ function validaPeso (peso) {
     }
 }
 
+// Função para validarAltura
 function validaAltura (altura) {
     if (altura >= 0 && altura <= 3.0) {
         return true;

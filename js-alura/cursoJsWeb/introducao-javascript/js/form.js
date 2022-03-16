@@ -12,26 +12,37 @@ button.addEventListener("click", function (event) {
     const paciente = obtemPacienteFormulario(form);
 
 
-    // Cria os tr e os td
-    const trMontada = montaTr(paciente);
+   
+    
 
+    // Buscar os erros e criar nosso array
     let erros = validaPaciente(paciente);
 
+    // criar a ul e li com os erros, se nosso array tiver dados
     if (erros.length > 0) {
         exibeMensagemDeErro(erros);
         return;
     }
 
     // Adicionando o paciente na tabela
-    const tabela = document.querySelector("#tabela-pacientes");
+    adicionaPacienteNaTabela(paciente);
+    
     const ul = document.querySelector("#mensagens-erro")
-    tabela.appendChild(trMontada);
+    
 
     // limpar campos
     form.reset();
     ul.innerHTML = "";
 });
 
+function adicionaPacienteNaTabela (paciente) {
+    // Cria os tr e os td
+    const trMontada = montaTr(paciente);
+    const tabela = document.querySelector("#tabela-pacientes");
+    tabela.appendChild(trMontada);
+}
+
+// Responsavel por cria nosso objeto com informações do paciente
 function obtemPacienteFormulario (form) {
 
     const paciente = {
@@ -45,6 +56,7 @@ function obtemPacienteFormulario (form) {
     return paciente;
 }
 
+// Montar nossa tr utilizando nosso objeto paciente
 function montaTr(paciente) {
     const pacienteTr = document.createElement("tr");
     pacienteTr.classList.add("paciente");
@@ -65,7 +77,7 @@ function montaTr(paciente) {
     return pacienteTr;
 }
 
-
+// Mota nossa td e colocar classe nela 
 function montaTd (dado, classe) {
     const td = document.createElement("td");
     td.textContent = dado;
@@ -74,6 +86,7 @@ function montaTd (dado, classe) {
     return td;
 }
 
+// Validar nosso paciente pelas informações vindas do objeto
 function validaPaciente (paciente) {
 
     const erros = [];
@@ -105,6 +118,7 @@ function validaPaciente (paciente) {
     return erros;
 }
 
+// Cria um ul e cada li são os erros que se tem
 function exibeMensagemDeErro(erros) {
     const ul = document.querySelector("#mensagens-erro");
     ul.innerHTML = "";
