@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Object-oriented JavaScript example</title>
+    </head>
+
+    <body>
+        <p>
+            This example requires you to enter commands in your browser's
+            JavaScript console (see
+            <a
+                href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_are_browser_developer_tools"
+                >What are browser developer tools</a
+            >
+            for more information).
+        </p>
+    </body>
+
+    <script>
+        // Isso é um objeto literal - ao pé da letra, escrevemos o conteúdo do objeto conforme o criamos
+        // let pessoa = {
+        //     // Dados (Propriedades)
+        //     nome: ["Bob", "Smith"],
+        //     idade: 32,
+        //     sexo: "masculino",
+        //     interesses: ["música", "esquiar"],
+        //     // Essas funções são chamadas de metodos do nosso objeto, funções que permitem que o objeto faça algo com esses dados
+        //     bio: function () {
+        //         alert(
+        //             this.nome[0] +
+        //                 " " +
+        //                 this.nome[1] +
+        //                 " tem " +
+        //                 this.idade +
+        //                 " anos de idade. Ele gosta de " +
+        //                 this.interesses[0] +
+        //                 " e " +
+        //                 this.interesses[1] +
+        //                 "."
+        //         );
+        //     },
+        //     saudacao: function () {
+        //         alert("Oi! Eu sou " + this.nome[0] + ".");
+        //     },
+        // };
+        // console.log(pessoa);
+        // console.log(pessoa.nome);
+        // console.log(pessoa.nome[0]);
+        // console.log(pessoa.idade);
+        // console.log(pessoa.interesses[1]);
+        // console.log(pessoa.bio());
+        // console.log(pessoa.saudacao());
+
+        // Em cima acessamos as propriedades de objetos e métodos usando notação de ponto. O nome da pessoa atua como namespace (espaço de nomes) - ele deve ser difitado primeiro para que você acesse qualquer coisa encapsulada dentro do objeto
+
+        // Sub-names é names que possui dentro deles a mesma coisa
+
+        let pessoa2 = {
+            // Dados (Propriedades)
+            // Criando um sub-namespace
+            nome: {
+                primeiro: "Bob",
+                ultimo: "Smith",
+            },
+            idade : 30
+        };
+
+        // console.log(pessoa2.nome.primeiro);
+        // console.log(pessoa2.nome.ultimo);
+
+        // Em vez de usar nome[0] ou nome[1] vamos utilizar : nome.primeiro ou nome.ultimo
+
+        // podemos usar em vez de pessoa.idade ou pessoa.nome.primeiro uma definição como:
+
+        // console.log(pessoa2['idade']);
+        // console.log(pessoa2['nome']['primeiro']);
+
+        //Setando membros do objeto
+        pessoa2.idade = 40;
+        pessoa2.nome.primeiro = "Kawhan";
+        pessoa2['nome']['ultimo'] = "Laurindo";
+
+        // Criando valores novos
+        pessoa2['olhos'] = 'Castanho';
+        pessoa2.despedida = function() { alert( "Adeus a todos!" ); }
+
+        // Varendo valores no nosso objeto
+        for (item in pessoa2) {
+            // console.log(item + " - " + pessoa2[item]);
+            console.log(`${item} = `);
+            console.log(pessoa2[item]);
+        }
+    </script>
+</html>
