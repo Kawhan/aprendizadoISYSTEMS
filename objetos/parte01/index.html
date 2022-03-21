@@ -63,7 +63,10 @@
                 primeiro: "Bob",
                 ultimo: "Smith",
             },
-            idade : 30
+            idade : 30,
+            saudacao: function(){
+                alert("Oi! meu nome é " + this.nome.primeiro + ".");
+            }
         };
 
         // console.log(pessoa2.nome.primeiro);
@@ -86,10 +89,26 @@
         pessoa2.despedida = function() { alert( "Adeus a todos!" ); }
 
         // Varendo valores no nosso objeto
-        for (item in pessoa2) {
-            // console.log(item + " - " + pessoa2[item]);
-            console.log(`${item} = `);
-            console.log(pessoa2[item]);
-        }
+        // for (item in pessoa2) {
+        //     // console.log(item + " - " + pessoa2[item]);
+        //     console.log(`${item} = `);
+        //     console.log(pessoa2[item]);
+        // }
+
+        // pessoa2.despedida();
+
+        // Colocar valores a partir de um input 
+        // Dessa forma podemos colocar
+        // let myDataName = nameInput.value;
+        // pessoa2[myDataName] = myDataValue;
+
+        //    This -> se refere ao objeto atual que o código está sendo escrito -  nesse caso o this se refere a pessoa
+        
+        // pessoa2.saudacao();
+
+        //Então quando usamos métodos de strings como:
+        //      minhaString.split(',');
+        // Estamos usando um método disponível na instância da class String. Toda vez que você cria uma string em seu código, essa string é automaticamente criada como uma instância de String, e, portanto, possui vários métodos e propriedades comuns que estão disponíveis para ela.
+
     </script>
 </html>
