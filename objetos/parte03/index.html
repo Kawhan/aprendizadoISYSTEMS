@@ -85,6 +85,19 @@
             reuben.greet(); // hello, my name is Reuben!
 
             // Isso também explica por que dissemos anteriormente que o protótipo de myDateé chamado Date.prototype: é prototypepropriedade do Dateconstrutor.
+
+            // Propriedades próprias
+
+            // Os objetos que criamos usando o Personconstrutor acima possuem duas propriedades: uma namepropriedade, que é definida no construtor, para que apareça diretamente nos Personobjetos um greet()método, que é definido no protótipo.
+
+            // É comum ver esse padrão, no qual os métodos são definidos no protótipo, mas as propriedades dos dados são definidas no construtor. Isso porque os métodos geralmente são os mesmos para todos os objetos que criamos, enquanto geralmente queremos que cada objeto tenha seu próprio valor para suas propriedades de dados (assim como aqui, onde cada pessoa tem um nome diferente). Propriedades que são definidas diretamente no objeto, como nameaqui, são chamadas de propriedades próprias e você pode verificar se uma propriedade é uma propriedade própria usando o Object.hasOwn()método estático:
+
+            const irma = new Person("Irma");
+
+            console.log(Object.hasOwn(irma, "name")); // true
+            console.log(Object.hasOwn(irma, "greet")); // false
+
+            // Nota: Você também pode usar o método não estático Object.hasOwnProperty()aqui, mas recomendamos que você use Object.hasOwn()se puder.
         </script>
     </body>
 </html>
