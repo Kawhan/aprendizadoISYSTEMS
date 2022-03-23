@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Parte 03 - Objetos</title>
+    </head>
+    <body>
+        <script>
+            // const myObject = {
+            //     city: "Madrid",
+            //     greet() {
+            //         console.log(`Greetings from ${this.city}`);
+            //     },
+            // };
+
+            // myObject.greet(); // Greetings from Madrid
+
+            // Cada objeto em JavaScript tem uma propriedade interna, que é chamada de seu prototype . O protótipo é em si um objeto, então o protótipo terá seu próprio protótipo, fazendo o que é chamado de cadeia de protótipos . A cadeia termina quando chegamos a um protótipo que tem nullpor protótipo próprio.
+
+            // console.log(Object.getPrototypeOf(myObject));
+
+            let myDate = new Date();
+            let object = myDate;
+
+            // do {
+            //     object = Object.getPrototypeOf(object);
+            //     console.log(object);
+            // } while (object);
+
+            // Date.prototype
+            // Object {...}
+            // null
+
+            // Esse código cria um Dateobjeto e, em seguida, percorre a cadeia de protótipos, registrando os protótipos. Isso nos mostra que o protótipo de myDateé um Date.prototypeobjeto, e o protótipo disso é Object.prototype.
+
+            //Na verdade, quando você chama métodos familiares, como myDate2.getMonth(), você está chamando um método definido em Date.prototype.
+
+            // Propriedades de sombreamento
+
+            myDate = new Date(1995, 11, 17);
+
+            console.log(myDate.getYear()); // 95
+
+            myDate.getYear = function () {
+                console.log("something else!");
+            };
+
+            console.log(myDate.getYear());
+
+            // Usando o object.create()
+
+            const personPrototype = {
+                greet() {
+                    console.log("hello!");
+                },
+            };
+
+            const carl = Object.create(personPrototype);
+            carl.greet(); // hello!
+
+            // O Object.create()método cria um novo objeto e permite especificar um objeto que será usado como protótipo do novo objeto.
+
+            // Aqui criamos um objeto personPrototype, que possui um greet()método. Em seguida, usamos Object.create()para criar um novo objeto com personPrototypeseu protótipo. Agora podemos chamar greet()o novo objeto e o protótipo fornece sua implementação.
+
+            // Usando um construtor
+
+            // Em JavaScript, todas as funções têm uma propriedade chamada prototype. Quando você chama uma função como construtor, essa propriedade é definida como o protótipo do objeto recém-construído (por convenção, na propriedade chamada __proto__).
+
+            function Person(name) {
+                this.name = name;
+            }
+
+            Person.prototype = personPrototype;
+            Person.prototype.constructor = Person;
+
+            // um objeto personPrototype, que tem um greet()método uma Person()função construtora que inicializa o nome da pessoa a ser criada. Em seguida, definimos a propriedade Personda função prototypepara apontar para personPrototype.
+
+            // A última linha ( Person.prototype.constructor = Person;) define a propriedade do protótipo constructorpara a função usada para criar Personobjetos. Isso é necessário porque depois de definir Person.prototype = personPrototype;a propriedade aponta para o construtor do personPrototype, que é Objectem vez de Person(porque personPrototypefoi construído como um literal de objeto).
+
+            // Após este código, os objetos criados usando Person()serão personPrototypecomo seu protótipo.
+
+            const reuben = new Person("Reuben");
+            reuben.greet(); // hello, my name is Reuben!
+
+            // Isso também explica por que dissemos anteriormente que o protótipo de myDateé chamado Date.prototype: é prototypepropriedade do Dateconstrutor.
+        </script>
+    </body>
+</html>

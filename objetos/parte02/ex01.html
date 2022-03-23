@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>OOJS: Task 1</title>
+        <style>
+            p {
+                color: purple;
+                margin: 0.5em 0;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+        </style>
+    </head>
+
+    <body>
+        <section class="preview"></section>
+    </body>
+    <script>
+        class Shape {
+            name;
+            sides;
+            sideLength;
+
+            constructor(name, sides, sideLength) {
+                this.name = name;
+                this.sides = sides;
+                this.sideLength = sideLength;
+            }
+
+            calcPerimeter() {
+                console.log(`O valor do perímetro é: ${(this.sides * this.sideLength)}`);
+            }
+        }
+
+        const cubo = new Shape("Quadrado", 4, 4);
+
+        cubo.calcPerimeter();
+    </script>
+</html>

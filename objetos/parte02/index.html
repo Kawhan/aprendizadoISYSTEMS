@@ -1,49 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Parte 02</title>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parte 02</title>
-</head>
+    <body>
+        <script>
+            class Person {
+                name;
+                // O construtor é definido usando a palavra- constructorchave
+                constructor(name) {
+                    this.name = name;
+                }
 
-<body>
-    <script>
-        class Person {
-
-            name;
-            // O construtor é definido usando a palavra- constructorchave
-            constructor(name) {
-                this.name = name;
+                introduceSelf() {
+                    console.log(`Hi! I'm ${this.name}`);
+                }
             }
 
-            introduceSelf() {
-                console.log(`Hi! I'm ${this.name}`);
+            const kawhan = new Person("kawhan");
+
+            kawhan.introduceSelf();
+
+            //  Omitindo construtores
+            // Se você não precisar fazer nenhuma inicialização especial, poderá omitir o construtor e um construtor padrão será gerado para você:
+
+            class Animal {
+                sleep() {
+                    console.log("zzzzzzz");
+                }
             }
 
-        }
+            const spot = new Animal();
 
-        const kawhan = new Person("kawhan");
+            spot.sleep(); // 'zzzzzzz'
 
-        kawhan.introduceSelf();
+            // Encapsulamento
+            // Declaração privada no construtor utiliza #
 
-        //  Omitindo construtores
-        // Se você não precisar fazer nenhuma inicialização especial, poderá omitir o construtor e um construtor padrão será gerado para você:
+            class Student extends Person {
+                #year;
 
-        class Animal {
+                constructor(name, year) {
+                    super(name);
+                    this.#year = year;
+                }
 
-            sleep() {
-                console.log('zzzzzzz');
+                introduceSelf() {
+                    console.log(
+                        `Hi! I'm ${this.name}, and I'm in year ${this.#year}.`
+                    );
+                }
+
+                canStudyArchery() {
+                    return this.#year > 1;
+                }
             }
 
-        }
+            const summers = new Student("Summers", 2);
 
-        const spot = new Animal();
+            summers.introduceSelf(); // Hi! I'm Summers, and I'm in year 2.
+            console.log(summers.canStudyArchery()); // true
 
-        spot.sleep(); // 'zzzzzzz'
+            // summers.#year; // SyntaxError
 
-    </script>
-</body>
+            // Metodo privado
+            class Example {
+                somePublicMethod() {
+                    this.#somePrivateMethod();
+                }
 
+                #somePrivateMethod() {
+                    console.log("You called me?");
+                }
+            }
+
+            const myExample = new Example();
+
+            myExample.somePublicMethod(); // 'You called me?'
+
+            // myExample.#somePrivateMethod(); // Syntax error
+        </script>
+    </body>
 </html>
