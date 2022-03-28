@@ -18,21 +18,19 @@
         <section></section>
 
         <script>
-            // Função de nível superior
             async function populate() {
                 const requestURL =
                     "https://mdn.github.io/learning-area/javascript/oojs/json/superheroes.json";
                 const request = new Request(requestURL);
 
                 const response = await fetch(request);
-                const superHeroes = await response.json();
+                const superHeroesText = await response.text();
 
-                console.log(superHeroes);
+                const superHeroes = JSON.parse(superHeroesText);
                 populateHeader(superHeroes);
                 populateHeroes(superHeroes);
             }
 
-            // Preenchendo o cabeçalho
             function populateHeader(obj) {
                 const header = document.querySelector("header");
                 const myH1 = document.createElement("h1");
@@ -44,7 +42,6 @@
                 header.appendChild(myPara);
             }
 
-            // Criando os cartões de informações do herói
             function populateHeroes(obj) {
                 const section = document.querySelector("section");
                 const heroes = obj["members"];
