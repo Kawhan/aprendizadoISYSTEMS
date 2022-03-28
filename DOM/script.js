@@ -2,15 +2,14 @@
 
 // console.log(heading);
 
-// const heading = document.getElementById("heading"); // Usado para selecionar a partir do dom o elemento por ID 
+// const heading = document.getElementById("heading"); // Usado para selecionar a partir do dom o elemento por ID
 
-// console.log(heading); 
+// console.log(heading);
 // console.log(typeof heading); // Cada elemento no dom é um objeto, se verificarmos o tipo de dado dessa variável vai ser object
 
 // Como sabemos o id é um tipo de indentificação única mas quando selecionarmos mais de 1 elemento de id, ele sempre vai selecionar apenas o primeiro
 // const heading2 = document.getElementById("heading");
-// console.log(heading2); 
-
+// console.log(heading2);
 
 // const list = document.getElementById("list");
 
@@ -25,7 +24,6 @@
 // const list = document.querySelector("ul");
 // const list = document.querySelector("#list");
 // const list = document.querySelector(".list");
-
 
 // console.log(list);
 
@@ -79,7 +77,6 @@
 //     console.log("click");
 // };
 
-
 // Mouse perto do componente
 // btn.onmouseover = () => {
 //     heading.style.cssText = 'background-color: brown; color: white';
@@ -92,7 +89,7 @@
 
 // const clickButton = () => {
 //     console.log("clicked!");
-// }; 
+// };
 
 // btn.addEventListener("click", (event) => {
 // heading.style.cssText = "background-color: brown; color: white";
@@ -134,7 +131,7 @@ const list = document.querySelector(".list");
 // console.log(list.nextElementSibling);
 
 // Criar um elemento nos utilizamos o create element
-const newEl = document.createElement('li');
+const newEl = document.createElement("li");
 
 // Criar elementos de texto
 const text = document.createTextNode("Blog");
@@ -146,7 +143,7 @@ console.log(newEl);
 
 // Por comportamento padrão ele coloca sempre no final se quisermos mudar de posição temos de colocar o insertBefore
 // list.appendChild(newEl);
-            // elemento    posição 
+// elemento    posição
 list.insertBefore(newEl, list.children[0]);
 
 // remover os elementos
