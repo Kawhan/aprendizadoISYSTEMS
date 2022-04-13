@@ -5,24 +5,40 @@
 // For example, the array ['Alf', 'Alice', 'Ben'] should be transformed to
 // { a: ['Alf', 'Alice'], b: ['Ben']}
 function myFunction(arr) {
-    let array = [];
     let letter;
     let cont = 0;
     letter = new Object();
 
     let valor = arr.forEach((element) => {
-        for (let i = 0; i < arr.length; i++) {
-            arr[i][i] === 
+        if (letter[element[0].toLowerCase()]) {
+        } else {
+            letter[element[0].toLowerCase()] = [];
         }
-        
-        letter[element[0].toLowerCase()] = element;
 
-        array.push(letter);
+        for (const property in letter) {
+            if (property === element[0].toLowerCase()) {
+                letter[property].push(element);
+            }
+        }
 
         cont++;
     });
 
-    return array;
+    return letter;
 }
 
 console.log(myFunction(["Alf", "Alice", "Ben"]));
+console.log(myFunction(["Ant", "Bear", "Bird"]));
+console.log(myFunction(["Berlin", "Paris", "Prague"]));
+
+// ====================================================
+function myFunction2(arr) {
+    return arr.reduce((acc, cur) => {
+        const firstLetter = cur.toLowerCase().charAt(0);
+        return { ...acc, [firstLetter]: [...(acc[firstLetter] || []), cur] };
+    }, {});
+}
+
+console.log(myFunction2(["Alf", "Alice", "Ben"]));
+console.log(myFunction2(["Ant", "Bear", "Bird"]));
+console.log(myFunction2(["Berlin", "Paris", "Prague"]));
