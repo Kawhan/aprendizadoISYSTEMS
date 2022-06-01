@@ -41,10 +41,26 @@ class Serie(Programa):
         return f'{self._nome} - {self.ano}- {self.temporadas} temporadas -  {self._likes} Likes'
 
 # Posso fazer com que ela herde o comportamento de uma lista
-class Playlist(list):
+class Playlist():
     def __init__(self, nome, programas):
-        self.nome = nome
-        super().__init__(programas)
+        self.nome = nome 
+        self._programas = programas
+    
+    # Esse metodo deixa o objeto com comportamento de lista de forma iteravel
+    # Ganha o for in e o in
+    # Fora que eu posso mostrar os elementos em posições na minha lista
+    def __getitem__(self, item):
+        return self._programas[item]
+    
+    @property
+    def listagem(self):
+        return self._programas
+    
+
+    def __len__(self):
+        return len(self._programas)
+    
+  
 
 
 vingadores = Filme('vingadores - guerra infinita', 2018, 160) 
