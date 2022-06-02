@@ -56,7 +56,7 @@ class Playlist():
     def listagem(self):
         return self._programas
     
-
+    # colocar o data model de sequencia para mostra o tamanho com len 
     def __len__(self):
         return len(self._programas)
     
