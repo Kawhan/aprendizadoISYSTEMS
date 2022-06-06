@@ -1,3 +1,6 @@
+import json
+from time import process_time_ns
+
 class Livros:
     def __init__(self, nome, autor, data_publicacao):
         self._nome = nome
@@ -27,8 +30,11 @@ class Biblioteca():
             for linha in arquivo:
                 linha  = linha.strip()
                 livros_montagem = linha.split(' - ')
-                book = Livros(livros_montagem[0], livros_montagem[1], livros_montagem[2])
-                livros.append(book)
+                if [0, 1, 2] in livros_montagem:    
+                    book = Livros(livros_montagem[0], livros_montagem[1], livros_montagem[2])
+                    livros.append(book)
+                else:
+                    print("erro")
         
         return livros
         
@@ -52,8 +58,24 @@ class Biblioteca():
             autor = autor.title().strip()
             data_de_publicacao = data_de_publicacao.strip()
         
-        with open('livros.txt', "a") as arquivo:
-            arquivo.write(f"\n{nome} - {autor} - {data_de_publicacao}")
+        list = []
+        
+         
+        with open('livros.json') as arquivo_json:
+            if arquivo_json:
+                arquivo_json_text = json.load(arquivo_json)
+            
+                
+        
+        for line in arquivo_json_text:
+            list.append(line)
+        
+        with open('livros.json', "w") as arquivo:
+            livro_dict = {"Nome": nome, "Autor": autor, "Data de publicação": data_de_publicacao}
+            list.append(livro_dict)
+            text_json = json.dumps(list)
+            print(text_json)
+            arquivo.write(text_json)
             
     def removerLivros(self):
         livro_remove = input("Bem vindo a Biblioteca pessoal, digite o nome do livro que você quer remover: ")
@@ -82,3 +104,5 @@ class Biblioteca():
         
 
 livros = Biblioteca()
+
+livross = livros.adicionarLivros()
