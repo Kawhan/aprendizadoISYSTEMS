@@ -1,6 +1,8 @@
 import json
+from functools import total_ordering
 from time import process_time_ns
 
+@total_ordering
 class Livros:
     def __init__(self, nome, autor, data_publicacao):
         self._nome = nome
@@ -11,12 +13,16 @@ class Livros:
         return f'Nome do livro: {self._nome} - Autor: {self._autor} - Data publicação: {self._data_publicacao}'
     
     # 
-    def __eq__(self, outro_filme_nome):
-        return self._nome == outro_filme_nome
-    
-    def __ne__(self, outro_filme_nome):
+    def __eq__(self, outro_livro):
+        if isinstance(outro_livro, Livros):
+            return ((self._nome == outro_livro._nome) and 
+                    (self._autor == outro_livro._autor) and 
+                    (self._data_publicacao == outro_livro._data_publicacao))
         
-        return self._nome != outro_filme_nome
+        return False
+    
+    def __lt__(self, outro_livro):
+        return self._data_publicacao > outro_livro._data_publicacao
     
     @property
     def nome(self):
@@ -49,7 +55,7 @@ class Biblioteca():
     def listarLivros(self):
         lista_livros = self.pegarLivros()
         print("\nListando os Livros\n")
-        for livro in lista_livros:
+        for livro in sorted(lista_livros):
             print(livro)
     
     def adicionarLivros(self):
@@ -80,16 +86,25 @@ class Biblioteca():
             list.append(livro_dict)
             text_json = json.dumps(list)
             arquivo.write(text_json)
+        
+        print("\nLivro adicionado com sucesso :)")
             
     def removerLivros(self):
-        livro_remove = input("Bem vindo a Biblioteca pessoal, digite o nome do livro que você quer remover: ")
-        livro_remove = livro_remove.title().strip()
+        livro_remove_nome = input("Digite o nome do livro que você quer remover: ")
+        livro_remove_autor = input("Digite o autor do livro que você quer remover: ")
+        livro_remove_data = input("Digite a data de publicação do livro que você quer remover: ")
+        
+        livro_remove_nome = livro_remove_nome.title().strip()
+        livro_remove_autor = livro_remove_autor.title().strip()
+        livro_remove_data = livro_remove_data.title().strip()
+        
+        book = Livros(livro_remove_nome, livro_remove_autor, livro_remove_data)
         
         lista_livros = self.pegarLivros()
         cont = 0
         autorizado = False
         for livro in lista_livros:
-            if (livro_remove == livro.nome):
+            if (book == livro):
                 lista_livros.pop(cont)
                 self.removeLinha(cont)
                 autorizado = True
@@ -103,6 +118,7 @@ class Biblioteca():
             if (pergunta != "Não" and pergunta != "Nao"):
                 self.removerLivros()
 
+        print("\nOperação de remoção completa :)")
         
     def removeLinha(self, indice):
         # with open('livros.txt', "r") as arquivo:
@@ -128,7 +144,3 @@ class Biblioteca():
             
         
 
-livros = Biblioteca()
-
-# livross = livros.listarLivros()
-livros.adicionarLivros()
