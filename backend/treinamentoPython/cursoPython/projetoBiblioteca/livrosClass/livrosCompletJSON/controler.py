@@ -22,7 +22,7 @@ def interfaceLibrary():
         else:
             print("\nNúmero invalido para operação configura novamente as opções")
         
-        confirma = input("\nDeseja fazer outra operação? ('SIM') ou ('Não')")
+        confirma = input("\nDeseja fazer outra operação? ('SIM') ou ('Não')").strip()
         if (confirma != "Não" and confirma != "Nao"):
             print("\n(1) Listar Livros | (2) Adicionar Livro | (3) Remover Livro")
             operacao = int(input(""))

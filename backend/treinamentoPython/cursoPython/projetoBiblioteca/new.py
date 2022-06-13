@@ -12,11 +12,33 @@
 #
 # Exemplo de saida: ['person_8', 'person_9', 'person_80']
 #
+
+
+
 def sort_string_as_number(arr):
+    escolhida = '' 
+    maior = ''
+    menor = None
+    list = []
     
     # Escreve seu código abaixo
+    for i in range(len(arr)):
+        for palavra in arr:  
+            number = int(palavra[7:])  
+            if  menor == None:
+                menor = number
+                escolhida = palavra
+            elif number <= menor:
+                menor = number
+                escolhida = palavra
+            else:
+                maior = number
+
+        list.append(f"person_{menor}")
+        arr.remove(escolhida)
+        menor = maior
     
-    return []
+    return list
 # Problema 2
 #
 # Complete a função 'stair_draw' abaixo.
@@ -29,11 +51,40 @@ def sort_string_as_number(arr):
  ##
 ###
 '''
+
+'''
+Com as mudanças para aparecer a escada do mario
+
+
+     # #
+    ## ##
+   ### ###
+  #### ####
+ ##### #####
+###### ######
+'''
 def stair_draw(n):
     
-    # Escreve seu código abaixo
+    string = ""
     
-    return ""
+    # Escreve seu código abaixo
+    cont = 0
+    while (n >= 0):
+        if cont ==0:
+            pass
+        else:
+            if cont != 6:
+                string += f"""{" "*(n)}{"#"*cont}"""
+                string += f""" {"#"*cont}"""
+                string += "\n"
+            else:
+                string += f"""{" "*(n)}{"#"*cont}"""
+                string += f""" {"#"*cont}"""
+        n -= 1
+        cont += 1
+
+    
+    return string
 # Problema 3
 #
 # Complete a função 'compare_skills' abaixo.
@@ -60,9 +111,19 @@ def stair_draw(n):
 #
 def compare_skills(a, b):
     
-    # Escreve seu código abaixo
+    list_pontos = [0,0]
     
-    return []
+    # Escreve seu código abaixo
+    for numero in a:
+        for numero2 in b:
+            if numero > numero2:
+                list_pontos[0] += 1
+            if numero < numero2:
+                list_pontos[1] += 1
+            b.remove(numero2)
+            break
+            
+    return list_pontos
 # Problema 4
 #
 # Complete a função 'diagonal_diff' abaixo.
@@ -83,9 +144,22 @@ def compare_skills(a, b):
 #
 def diagonal_diff(arr):
     
+    escolha = 0
+    escolha2 = -1
+    listarr = []
+    listarr2 = []
     # Escreve seu código abaixo
+    for espacos in arr:
+        listarr.append(espacos[escolha])
+        escolha += 1
     
-    return 0
+    for espacos in arr:
+        listarr2.append(espacos[escolha2])
+        escolha2 -= 1
+    
+    
+    
+    return abs(sum(listarr) - sum(listarr2))
 # Problema 5
 #
 # Complete a função 'perc_elements' abaixo.
@@ -102,8 +176,23 @@ def diagonal_diff(arr):
 def perc_elements(arr):
     
     # Escreve seu código abaixo
+    possitivos = 0
+    negativos = 0
+    zeros = 0
     
-    return []
+    tamanho = len(arr)
+    
+    for elemento in arr:
+        if (elemento > 0):
+            possitivos += 1
+        elif (elemento < 0):
+            negativos += 1
+        elif (elemento == 0):
+            zeros += 1
+    
+    
+    return [round(possitivos/tamanho, 6), round(negativos/tamanho,6), round(zeros/tamanho, 6)]
+
 if __name__ == '__main__':
     # sort_string_as_number()
     arr = ['person_1', 'person_2', 'person_3', 'person_10', 'person_100', 'person_31', 'person_22']
@@ -120,11 +209,11 @@ if __name__ == '__main__':
     print(res)
     
     # diagonal_diff()
-    arr = [[1, 2, 2, 1], [2, 1, 1, 2], [1, 2, 1, 2], [2, 1, 2, 1]]
+    arr = [[1, 2, 3, 1], [4, 5, 6, 2], [9, 8, 9, 2], [2, 4, 1, 3]]
     res = diagonal_diff(arr)
     print(res)
     
     # perc_elements
-    arr = [-4, 3, -9, 0, 4, 1]
+    arr = [1, 1, 0, -1, -1]
     res = perc_elements(arr)
     print(res)
