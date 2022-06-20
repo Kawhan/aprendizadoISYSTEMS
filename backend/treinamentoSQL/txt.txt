@@ -1,0 +1,175 @@
+Linguagem SQL - História
+    Desenvolvido pela IBM 
+
+
+    Vantagens:
+        * Aprendizado
+        * Portabilidade
+        * Longevidade
+        * Comunicação
+        * Liberadade de Escolha
+
+    Desvantagens:
+        * Falta de criatividade
+        * Falta de estruturação
+
+    Comandos:
+        * DDL -> Linguagem de definição de Dados
+            - DDL é a parte da linguagem SQL que permite a manipulação das estruturas do banco de dados
+            - Criar um banco, criar tabela, criar indice, apagar tabela, alterar...
+            - Todos os comandos que usam a estrutura do banco de dados relacional s~çao chamados de DDL
+        * DML -> Linguagem de manipulação de Dados
+            - Grupo de comandos responsavel por gerenciar os dados, incluir, alterar informações que estão dentro da estrutura do banco
+            - Também fazer consultas tirar do banco e mostra para o usuário
+        * DCL -> Linguagem de controle de dados
+            - Grupo de comandos para administrar o banco de dados, não na estrutura mas sim na administração do controle de acesso, gerenciar usuário...
+
+
+Historia do MYSQL
+    Características:
+        * Servidor
+        * Portabilidade
+        * Multithreads
+        * Formas de armazenamento
+        * Velocidade
+        * Desempenho
+        * Segurança
+        * Capacidade
+        * Aplicabilidade
+        * Logs
+
+sudo mysql -uroot -p;
+
+-> Dentro do banco de dados nos temos diversas entidades, são estruturas que armazenam coisas do banco de dados
+    * Estutura principal é a tabela
+        * Tabela é como se fosse uma planilha de exel que tenho colunas e linhas, só que diferente disso
+        porque quando eu crio uma tabela eu já aplico as definições do que eessa tabela vai ter.
+        * Uma definição que sempre fazemos é dizer quantos campos essa tabela vai ter e de que tipo vai ser esses campos
+        * Campo funciona como coluna
+        * Se eu definir aquele campo como Inteiro eu vou ter somente Inteiros naquele campo
+
+        * Cada linha da tabela chamamos de registro ou linhas propriamente dita
+        * Uma tabela tem número de campos limitados porém pode ser infinitas linhas ou infinitos registros
+    
+
+    * Chave primária
+        * Quando eu crio uma tabela eu posso definir uma chave primaria, se eu definir uma quero dizer que a combinação entre campos não pode se repetir na linha 
+
+        * Eu tenho muitas tabelas em um banco de dados cada tabela tem uma parte da informação guardada, mas essas tabelas podem se relacionar ter uma ligação entre elas, com a chave estrangeira eu posso fazer essa ligação
+
+        * Tabela pode ter uma indice que é um instrumento que me ajuda a achar elementos da minha tabela de maneira mais rapida, ele meio que organiza os nomes em ordem alfabetica facilitando nossa busca
+
+        * Um grupo de tabelas podem ser associados ao que chamamos de esquema, esquema é como se fosse um assunto, esse grupo de tabelas tem a ver com vendas, tabelas de esquemas diferentes podem muito bem se relacionarem
+
+
+
+    - View
+        * Banco de dados tem uma coisa também chamada View, view é um agrupamento de tabela, podemos criar consulta em uma tabela, essa consulta não ta pegando somente informação de uma tabela, mas uma consulta pode pegar informação de uma de 2 ou de 1000 tabelas ao mesmo tempo
+
+        * Se eu quero buscar informações de mais de uma tabela eu tenho de usar o JOIN, que junta a tabela atraves de um criterio e quando eu faço essa consulta juntando essas tabelas, eu posso inclusive implementar filtros
+
+
+    - Procedures
+        * Procedures eu basicamente utilizo funções ou condições, o proprio banco de dados do SQL já tem um catalogo de funções, tirar espaços, colocar letras de forma maiuscula, fazer calculos complexos
+
+    - Trigger
+        * Um aviso ou seja um alerta que eu programo para caso alguma coisa aconteça, no banco de dados ou na tabela, me avise caso um usuário remova uma tabela e por ai vai, o aviso não gira em torno de uma mensagem, posso realizar processo ou seja executar uma função, ou pode ser apenas um comando que vai ser executado quando for ativado a trigger
+    
+    - Você utiliza crase quando tem espaço em branco no nome da tabela ai você utiliza crase, um número inteirno eu não preciso da crase
+
+    
+
+    # Tipos de dados
+        * Propriedade UNSIGNED:
+            * Não permite sinal do número. Por isso o conjunto de valores válidos aumentam.
+
+        Pontos Flutuante:
+            * FLOAT - Precisão simples (4 bytes)
+            * DOUBLE: Precisão dupla (8 bytes)
+                                    (Numero de digitos, casas decimais)
+                                                   I
+            Exemplo: Se declaramos um campo FLOAT(7,4) se incluímos o número de 999.00009 o valor armazenado será 999.0001
+
+
+        Fixos:
+            * DECIMAL ou NUMERIC
+                * Tamanho: Até 65 dígitos
+                * Especificamos o número de dígitos e o número de casas decimais.
+                Exemplo:
+                    * Se declaramos um campo DECIMAL(5,2) iremos poder  armazenar valores somente entre -999.99 e 999.99
+                
+                Número máximo de dígitos são 65
+
+        Único:
+            * BIT
+                * Tamanho: Até 64 Bits
+                Exemplo: BIT(1) - Pode ser 1 ou 0
+                BIT(2) - Pode ser 01, 10, 00, 11
+        
+        Atributos dos campos númericos 
+            * SIGNED OU UNSIGNED - Vai possuir ou n]ao sinal no número
+            * ZEROFILL - Preenche com ZeRos os espaços:
+            Exemplo: INT(4). Se armazenado o valor 5 será gravado 0005
+
+            AUTO_INCREMENT - Sequencia auto incrementada
+            Exemplo: 1,2,3,4,5...
+
+            Erros de OUT OF RANGE:
+                * Vão ocorrer quando os valores estourarem os limites.
+
+        Data e Hora:
+            * DATE - 1000-01-01 até 9999-12-31
+            * DATETIME - 1000-01-01 00:00:00 até 9999-12-31 23:59:59
+            * TIMESTAMP - 1970-01-01 00:00:01 UTC até 2038-01-19 UTC
+            * TIME - -838:59:59 e 839:59:59
+            * YEAR - 1901 - 2155 (Pode ser expresso no formato 2 ou 4 dígitos)
+
+
+        STRINGS:
+            * CHAR -> Cadeira de caracteres com valor fixo (de 0 a 255).
+            * VARCHAR -> Cadeira de caracteres com valor variado (de 0 a 255).
+
+            CHAR(4) - "aa" - " aa"
+            VARCHAR(4) - "aa" - "aa"
+
+            * BINARY -> Cadeia de caracteres com valor fixo (de 0 a 255). Expressos em Binário.
+            * VARBINAY -> Cadeia de caracteres com valor variado (de 0 a 255). Expressos em Binário.
+
+            * BLOB - Binário longo. Podemos ter:
+                * TINYBLOB 
+                * BLOB
+                * MEDIUMBLOB
+                * LONGBLOB
+
+                * TEXT - Texto Longo
+
+                * TINYTEXT
+                * TEXT
+                * MEDIUMTEXT
+                * LONGTEXT
+
+            ENUM:
+                * Permite armazenar uma lista pré-definida de valores.
+                * Exemplo: Size ENUM('x-small', 'small', 'medium', 'large', 'x-large')
+
+            Atributos dos campos Strings:
+                * SET e COLLATE - Que tipo de conjunto de caracteres serão suportados.
+
+        SPACIAL:
+            * GEOMETRY
+            * POINT
+            * LINESTRING
+            * POLYGO
+
+    # Comandos
+        - CREATE DATABASE SUCOS; -> CRIAR DATABASE
+        - DROP DATABASE SUCOS -> APAGAR UM DATABASE
+        - use word --> equivalente ao double click no workspace
+        - CREATE TABLE tbCliente; -> CRIAR TABELA
+        - `SABOR` VARCHAR(50) NULL -> Colocando como NULL quero dizer que esse campo aceita campos nulos
+        - DROP TABLE tbcliente3 -> Apagar uma tabela
+
+    # Caminho mysql Windows Program Files\MySQL\MySQL Server 8.0\bin\mysql -h localhost -u root -p
+
+    # informações
+        * apagar tabela é um procedimento perigoso
