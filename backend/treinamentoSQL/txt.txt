@@ -163,7 +163,7 @@ sudo mysql -uroot -p;
 
     # Comandos
         - CREATE DATABASE SUCOS; -> CRIAR DATABASE
-        - DROP DATABASE SUCOS -> APAGAR UM DATABASE
+        - DROP DATABASE SUCOS -> APAGAR UM DATABASE, objetos ou componentes do mysql
         - use word --> equivalente ao double click no workspace
         - CREATE TABLE tbCliente; -> CRIAR TABELA
         - `SABOR` VARCHAR(50) NULL -> Colocando como NULL quero dizer que esse campo aceita campos nulos
@@ -173,10 +173,19 @@ sudo mysql -uroot -p;
                 PRECO_LISTA) VALUES (
                 '1040107', 'Light - 350 ml - Melância',
                 'Lata', '350 ml', 'Melância', 4.56);
+        - DELETE FROM tbproduto WHERE PRODUTO = '1078680'; --> Deletar conteudo de uma tabela
+        - ALTER TABLE tdcliente ADD COLUMN (DATA_NASCIMENTO DATE); --> Comando utilizado para criar uma nova coluna
+        - ALTER TABLE tbproduto ADD PRIMARY KEY (PRODUTO); --> Altere a tabela tbproduto uma primary key no campo PRODUTO
+        - SELECT CPF, NOME FROM tbcliente; --> Colocando para aparecer somente alguns campos
+        - SELECT CPF, NOME FROM tbcliente LIMIT 5; --> Colocando apenas alguns campos e estabelecendo limite, ele pega os 5 primeiros que ele acha na tabela
+        - SELECT CPF AS CPF_CLIENTE, NOME AS NOME_CLIENTE FROM tbcliente; --> Colocando nomes somente nas consultas, esses nomes fantasiados chamamos de ALIAS
+
+
 
         # Alterando nossos dados
         - UPDATE tbproduto SET EMBALAGEM = 'Lata', PRECO_LISTA = 2.46 
         WHERE PRODUTO = '544931';
+        
 
     # Caminho mysql Windows Program Files\MySQL\MySQL Server 8.0\bin\mysql -h localhost -u root -p
 
@@ -184,3 +193,13 @@ sudo mysql -uroot -p;
         * apagar tabela é um procedimento perigoso
         * Quando eu for colocar um valor para ser reconhecido como string no banco de dados preciso colocar as aspas simples
         * Chave primaria é aquele campo que não pode se repetir
+        * Valores bits só aceitam 1 ou 0  
+        * Existe uma maneira universal de representar data no mysql 'ANO-MES-DIA' = '1989-10-05' ANO COM 4 DIGITOS, MES COM 2 DIGITOS E DIA COM 2 DIGITOS
+        * ALIAS nome fantasia que dou para o campo
+        * SELECT NOME, CPF, SEXO, IDADE, DATA_NASCIMENTO FROM tbcliente; --> Não necessariamente preciso colocar em ordem
+
+    # Incluido a chave primaria
+        - É importante que uma tabela tenha chaves primarias para evitar que sejam inseridos registros iguais, dentro da mesma tabela
+        - Posso colocar uma chave primaria para algo que não muda no caso de comercios o ID do produto por exemplo
+        * ALTER TABLE --> Utilizado para alterar o comportamento de uma tabela que já existe
+        * ALTER TABLE tbproduto ADD PRIMARY KEY (PRODUTO); --> Altere a tabela tbproduto uma primary key no campo PRODUTO
