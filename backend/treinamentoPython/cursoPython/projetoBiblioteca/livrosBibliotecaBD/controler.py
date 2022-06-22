@@ -39,7 +39,7 @@ def interfaceLibrary():
         
         confirma = input("\nDeseja fazer outra operação? ('SIM') ou ('Não') ").strip()
         if (confirma.lower() == 's' or confirma.lower() == 'sim'):
-            print("\n(1) Listar Livros | (2) Adicionar Livro | (3) Remover Livro | (4) (4) Atualizar(UPDATE) Livro | (5) Sair")
+            print("\n(1) Listar Livros | (2) Adicionar Livro | (3) Remover Livro | (4) Atualizar(UPDATE) Livro | (5) Sair")
             operacao = int(input(""))
         else:
             continuar = False
