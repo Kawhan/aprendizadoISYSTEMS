@@ -1,6 +1,9 @@
 import mysql.connector
 from functools import total_ordering
 
+cnx = mysql.connector.connect(user='root', password='123456789Teste*',
+                              host='localhost',
+                              database='BIBLIOTECA')
 
 @total_ordering
 class Livros:
@@ -41,10 +44,6 @@ class Biblioteca():
     def pegarLivros(self):
         livros = []
         
-        cnx = mysql.connector.connect(user='root', password='123456789Teste*',
-                              host='localhost',
-                              database='BIBLIOTECA')
-
         mycursor = cnx.cursor()
                     
         # with open('livros.json', "r") as arquivo:
@@ -90,9 +89,7 @@ class Biblioteca():
             data_de_publicacao = data_de_publicacao.strip()
         
         
-        cnx = mysql.connector.connect(user='root', password='123456789Teste*',
-                              host='localhost',
-                              database='BIBLIOTECA')
+        
 
         mycursor = cnx.cursor()
         
@@ -104,17 +101,23 @@ class Biblioteca():
         cnx.commit()
         mycursor.close()
         print("\nLivro adicionado com sucesso :)")
-            
+        
+    def CriarLivro(self, nome, autor, data_de_publicacao):
+        nome = nome.title().strip()
+        autor = autor.title().strip()
+        data_de_publicacao = data_de_publicacao.title().strip()
+        
+        book = Livros(nome, autor, data_de_publicacao)
+        
+        return book
+    
+    
     def removerLivros(self):
         livro_remove_nome = input("Digite o nome do livro que você quer remover: ")
         livro_remove_autor = input("Digite o autor do livro que você quer remover: ")
         livro_remove_data = input("Digite a data de publicação do livro que você quer remover: ")
         
-        livro_remove_nome = livro_remove_nome.title().strip()
-        livro_remove_autor = livro_remove_autor.title().strip()
-        livro_remove_data = livro_remove_data.title().strip()
-        
-        book = Livros(livro_remove_nome, livro_remove_autor, livro_remove_data)
+        book = self.CriarLivro(livro_remove_nome, livro_remove_autor, livro_remove_data)
         
         lista_livros = self.pegarLivros()
         cont = 0
@@ -146,11 +149,6 @@ class Biblioteca():
         #     for line in livroLinhas:
         #         f.write(line)
         
-        
-        cnx = mysql.connector.connect(user='root', password='123456789Teste*',
-                                        host='localhost',
-                                        database='BIBLIOTECA')
-
         mycursor = cnx.cursor()
 
         sql = f"DELETE FROM livros WHERE NOME = '{book.nome}' and AUTOR = '{book.autor}' and DATA_DE_PUBLICACAO = '{book.data_publicacao}'"
@@ -158,4 +156,63 @@ class Biblioteca():
         mycursor.execute(sql)
 
         cnx.commit()
-                    
+    
+    def update_book(self):
+        livro_update_nome = input("Digite o nome do livro que você quer mudar: ")
+        livro_updade_autor = input("Digite o autor do livro que você quer mudar: ")
+        livro_update_data = input("Digite a data de publicação do livro que você quer mudar: ")
+        
+        book = self.CriarLivro(livro_update_nome, livro_updade_autor, livro_update_data)
+        
+        livro_update_nome2 = input("\nDigite o nome do livro que você quer atribuir: ")
+        livro_updade_autor2 = input("Digite o autor do livro que você quer atribuir: ")
+        livro_update_data2 = input("Digite a data de publicação do livro que você quer atribuir: ")
+        
+        book2 = self.CriarLivro(livro_update_nome2, livro_updade_autor2, livro_update_data2)
+        
+        lista_livros = self.pegarLivros()
+        cont = 0
+        autorizado2 = False
+        for livro in lista_livros:
+            if (book == livro):
+                lista_livros = self.update_livros(cont , lista_livros, livro_update_nome2, livro_updade_autor2, livro_update_data2)
+                self.atualizaLinha(livro, book2)
+                autorizado2 = True
+        
+            cont += 1    
+        
+        if (not autorizado2):
+            pergunta = input("Livro não encontrado, deseja fazer a operação de novo? ('SIM') ou ('Não')")
+            pergunta = pergunta.strip().title()
+            if (pergunta != "Não" and pergunta != "Nao"):
+                self.update_book()
+
+        print("\nOperação de update completa :)")
+          
+    
+    def update_livros(self, cont , lista_livros, livro_update_nome, livro_update_autor, livro_update_data):
+        book = Livros(livro_update_nome, livro_update_autor, livro_update_data)
+        lista_livros[cont] = book
+        
+        return lista_livros
+    
+    
+    def atualizaLinha(self, book, book2):
+        # with open('livros.txt', "r") as arquivo:
+        #     livroLinhas = arquivo.readlines()
+        
+        # livroLinhas.pop(indice)
+        
+        # with open("livros.txt", "w") as f:
+        #     for line in livroLinhas:
+        #         f.write(line)
+        
+        mycursor = cnx.cursor()
+
+        # sql = f"UPDATE FROM livros WHERE NOME = '{book.nome}' and AUTOR = '{book.autor}' and DATA_DE_PUBLICACAO = '{book.data_publicacao}'"
+        sql = f"UPDATE livros SET NOME = '{book2.nome}', AUTOR = '{book2.autor}', DATA_DE_PUBLICACAO = '{book2.data_publicacao}' WHERE NOME = '{book.nome}' and AUTOR = '{book.autor}' and DATA_DE_PUBLICACAO = '{book.data_publicacao}'"
+
+        mycursor.execute(sql)
+
+        cnx.commit()
+            

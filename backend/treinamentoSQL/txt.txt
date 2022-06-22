@@ -168,8 +168,19 @@ sudo mysql -uroot -p;
         - CREATE TABLE tbCliente; -> CRIAR TABELA
         - `SABOR` VARCHAR(50) NULL -> Colocando como NULL quero dizer que esse campo aceita campos nulos
         - DROP TABLE tbcliente3 -> Apagar uma tabela
+        - INSERT INTO tbproduto ( --> Inserir em uma tabela os valores para cada campo
+                PRODUTO,  NOME, EMBALAGEM, TAMANHO, SABOR,
+                PRECO_LISTA) VALUES (
+                '1040107', 'Light - 350 ml - Melância',
+                'Lata', '350 ml', 'Melância', 4.56);
+
+        # Alterando nossos dados
+        - UPDATE tbproduto SET EMBALAGEM = 'Lata', PRECO_LISTA = 2.46 
+        WHERE PRODUTO = '544931';
 
     # Caminho mysql Windows Program Files\MySQL\MySQL Server 8.0\bin\mysql -h localhost -u root -p
 
     # informações
         * apagar tabela é um procedimento perigoso
+        * Quando eu for colocar um valor para ser reconhecido como string no banco de dados preciso colocar as aspas simples
+        * Chave primaria é aquele campo que não pode se repetir
