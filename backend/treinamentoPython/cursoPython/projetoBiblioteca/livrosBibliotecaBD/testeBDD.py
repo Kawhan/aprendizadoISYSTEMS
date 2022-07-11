@@ -1,9 +1,9 @@
 import mysql.connector
 from functools import total_ordering
 
-cnx = mysql.connector.connect(user='root', password='123456789Teste*',
+cnx = mysql.connector.connect(user='root', password='password',
                               host='localhost',
-                              database='BIBLIOTECA')
+                              database='BIBLIOTECA', port=3305)
 
 @total_ordering
 class Livros:

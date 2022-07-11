@@ -1,0 +1,71 @@
+- Docker run img_name --> primeiro ele verifica se a imagem tem no nosso repositorio local, caso ela não esteja no nosso repositorio local ele procura no docker hub a imagem, faz o dowload e depois executa a imagem.
+
+- docker ps --> mostra todos os containers que estão sendo executados naquele instante
+
+- docker container ls --> mesma coisa do docker ps mas deixa ele mais semantico e é um comando mais verboso
+
+- docker container ls -a ou docker container ps -a --> a flag a mostra todos os containers mesmo os que não estejam ativos naquele momento
+
+Obs: para um container se tornar ativo devemos ter pelo menos um processo rodando para que de fato ele considere ativo
+
+Obs: Ter cuidado nas criações do container para não ter containers zumbis
+
+- docker stop id_container --> parar nosso container depois de um tempo. passando a flag -t = 0 antes do id do container podemos zerar o tempo inicialmente de 10 segundos para 0
+
+- docker exec -it id_container bash --> executar algo no container ativo de maneira que a flag -i vem de interativo e a -t para acessar o terminal, temos o id do container e o que queremos executar no container ativo.
+
+- docker pause id_container --> para pausar o nosso container apartir do id.
+
+- docker unpause id_container --> tirar o pause 
+de um container inicialmente pausado.
+
+
+- docker run -it bash id_container --> da o run no nosso container de maneira interativa.
+
+
+- docker start id_container --> dar o start no nosso container.
+
+- docker rm id_container --> remover o nosso container.
+
+- docker run -d nome_container ou img --> -d vem de detected e serve para executar nosso container sem travar o terminal.
+
+- docker rm id_container  --force --> parar nosso container e também remover ele.
+
+- docker stop $(docker container ls -q) --> docker stop para parar nossos containers o "$()" vem para dizer que vou usar o comando entre parenteses para o docker stop e o "-q" vem de quiet para eu pegar apenas o id dos nossos containers
+
+- docker rm $(docker container ls -aq) --> apagar todos nossos containers mesmo os parados pegando somente seus id com a flag "-q" que representa quiet
+
+- docker rmi $(docker image ls -aq) --> rmi todos nossas imagens mesmo sem esta em execução
+
+- docker rmi $(docker image ls -aq) --force --> rmi todos nossas imagens mesmo sem esta em execução e com force força apagar até mesmo as imagens que são usadas em multiplos repositorios
+
+- docker ps -s --> mostra uma coluna extra do tamanho, virtual(tamanho total da nossa imagem) 
+
+------------ Mapeando portas -------------
+
+- docker -d -P nome_img --> faz um mapeamento de portas para nosso container.
+
+- docker port id_container --> posso ver quais portas estão mapeadas no meu containers.
+
+- docker run -d -p 8080:80 iamgem_docker --> com o -p oissi refletir portas especificas do meu container.
+
+Obs: Nosso docker tem uma rede separa das outras redes do computador e de outros containers o -P serve ára ,aéar essas ´prtas externas para nossa execução.
+
+-------------- Comprendendo images -------
+
+- docker images --> consigo ver informações das imagens que tenho no computador.
+
+- docker inspect image_id --> consigo ter diversas informações da imagem na qual estou analisando.
+
+- docker hystory image_id --> consigo ver as camadas da nossa imagem, quando as camadas são empilhadas umas nas outras elas foram a iamgem geral.
+
+Obs: Caso quando executado run e formos baixar uma imagem caso essa imagem tenha algumas camadas que eu já tenha no computador eu vou está baixando apenas as que eu não tenho, já que eu posso reutilizar camadas de outras imagens.
+
+Não conseguimos modificar as camadas dessa imagem depois que ela foi criada, QUando criamos uma iamgem de um container criamos uma camada adicional de Read/write para ler e escrever infomações.
+
+Quando eu crio um monte de container baseado na mesma imagem meio que eu reutilizo esa imagem para outros containers afim de optimizar espaço, criando apenas a camada de read/write em cada imagem.
+
+-------------- Criando imagens -----------------
+
+- docker build -t nome_img/app-node1.0 . --> esse docker build vai criar nossa imagem o -t vem para etiquetar nossa imagem e o "." vem para representar o diretorio atual
+
