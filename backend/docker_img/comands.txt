@@ -41,6 +41,12 @@ de um container inicialmente pausado.
 
 - docker ps -s --> mostra uma coluna extra do tamanho, virtual(tamanho total da nossa imagem) 
 
+- docker inspect id_container --> traz dados do container em execução
+
+- docker run -it --name ubuntu1 --> dando um nome para o nosso container
+
+- docker network create --driver bridge minha-bridge --> criando uma propria rede padrão que faça o papel de bridge utilizando o drive de bridge com o nome minha brige
+
 ------------ Mapeando portas -------------
 
 - docker -d -P nome_img --> faz um mapeamento de portas para nosso container.
