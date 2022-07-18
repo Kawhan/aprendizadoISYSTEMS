@@ -1,0 +1,20 @@
+{% extends 'index.html' %} {% block conteudo %}
+<form action="{{ url_for('criar') }}" method="post">
+    <fieldset>
+        <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="options">Categoria:</label>
+            <select name="options" id="">
+                <option value="enlatados">enlatados</option>
+                <option value="limpeza">limpeza</option>
+                <option value="comida">comida</option>
+                <option value="usaveis">usaveis</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-salvar">Salvar</button>
+    </fieldset>
+</form>
+{% endblock %}

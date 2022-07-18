@@ -1,0 +1,15 @@
+{% extends 'index.html' %} {% block conteudo %}
+<form action="{{ url_for('apagarProduto') }}" method="post">
+    <fieldset>
+        <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="id_produto">ID</label>
+            <input type="number" id="id_produto" name="id_produto" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary btn-salvar">Apagar</button>
+    </fieldset>
+</form>
+{% endblock %}

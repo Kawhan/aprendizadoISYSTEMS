@@ -1,0 +1,20 @@
+{% extends 'index.html' %} {% block conteudo %}
+<table class="table table-striped table-responsive table-bordered">
+    <thead class="thead-default">
+        <tr>
+            <th>ID Produto</th>
+            <th>Nome Produto</th>
+            <th>Categoria Produto</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for produto in myresult %}
+        <tr>
+            <td>{{ produto[0] }}</td>
+            <td>{{ produto[1] }}</td>
+            <td>{{ produto[2] }}</td>
+        </tr>
+        {%endfor%}
+    </tbody>
+</table>
+{% endblock %}
