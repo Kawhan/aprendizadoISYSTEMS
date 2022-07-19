@@ -1,5 +1,5 @@
 from crypt import methods
-from flask import Flask, redirect, render_template, request, redirect, flash
+from flask import Flask, redirect, render_template, request, redirect, flash, url_for
 import mysql.connector
 
 app = Flask(__name__)
@@ -53,10 +53,10 @@ def criar():
         mycursor.close()
         
         flash('Produto Cadastrado com sucesso!')
-        return redirect('/')
+        return redirect(url_for('index'))
     else:
         flash('Produto não cadastrado!', 'error')
-        return redirect('/')
+        return redirect(url_for('index'))
 
 @app.route('/listar')
 def listar():
@@ -99,8 +99,39 @@ def apagarProduto():
     mycursor.close()
     
     flash('Produto apagado com sucesso!')
-    return redirect ('/')
+    return redirect(url_for('index'))
     
+@app.route('/editar')
+def editar():
+    titulo = 'Mudar produtos'
+    return render_template('/editar.html',titulo=titulo)
+
+@app.route('/mudar', methods=['POST'])
+def mudar():
+    nome = request.form['nome']
+    categoria = request.form['options']
     
+    nome_novo = request.form['nome_alterar']
+    categoria_nova = request.form['options_alterar']
+    
+    if (nome != "" and categoria != "" and request.form.get('options') in ['enlatados', 'limpeza', 'comida', 'usaveis']) and (nome_novo != "" and categoria_nova != "" and request.form.get('options_alterar') in ['enlatados', 'limpeza', 'comida', 'usaveis']):
+        nome = nome.title().strip()
+        nome_novo = nome_novo.title().strip()
+        
+        mycursor = cnx.cursor()
+            
+        sql = """UPDATE produtos SET produto_nome = '%s' , produto_categoria = '%s' WHERE produto_nome = '%s' AND produto_categoria = '%s' """ % (nome_novo, categoria_nova, nome, categoria)
+        
+
+        mycursor.execute(sql)
+            
+        cnx.commit()
+        mycursor.close()
+        
+        flash('Operação de edição efetuada com sucesso!')
+        return redirect(url_for('index'))
+    else:
+        flash('Operação de edição não efetuada!')
+        return redirect(url_for('index'))
 
 app.run(debug=True)

@@ -22,7 +22,7 @@
                 <h1>{{ titulo }}</h1>
                 <a class="btn btn-primary" href="{{ url_for('novo')}}" role="button">Cadastrar Produtos</a>
                 <a class="btn btn-primary" href=" {{ url_for('apagar')}}" role="button">Apagar Produtos</a>
-                <a class="btn btn-primary" href="#" role="button">Editar Produtos</a>
+                <a class="btn btn-primary" href="{{ url_for('editar') }}" role="button">Editar Produtos</a>
                 <a class="btn btn-primary" href="{{ url_for('listar')}}" role="button">Listar Produtos</a>
             </div>
             {% block conteudo %} {% endblock %}
