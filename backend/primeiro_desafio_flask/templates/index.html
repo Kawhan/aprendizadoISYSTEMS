@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Jogoteca</title>
+        <title>Cadastro produtos</title>
         <link
             rel="stylesheet"
             href="{{ url_for('static', filename='bootstrap.css') }}"
@@ -20,9 +20,9 @@
             {% endif %} {% endwith %}
             <div class="page-header">
                 <h1>{{ titulo }}</h1>
-                <a class="btn btn-primary" href="{{ url_for('novo')}}" role="button">Cadastrar Produtos</a>
-                <a class="btn btn-primary" href=" {{ url_for('apagar')}}" role="button">Apagar Produtos</a>
-                <a class="btn btn-primary" href="{{ url_for('editar') }}" role="button">Editar Produtos</a>
+                <a class="btn btn-primary" href="{{ url_for('criar')}}" role="button">Cadastrar Produtos</a>
+                <a class="btn btn-primary" href=" {{ url_for('apagarProduto')}}" role="button">Apagar Produtos</a>
+                <a class="btn btn-primary" href="{{ url_for('mudar') }}" role="button">Editar Produtos</a>
                 <a class="btn btn-primary" href="{{ url_for('listar')}}" role="button">Listar Produtos</a>
             </div>
             {% block conteudo %} {% endblock %}

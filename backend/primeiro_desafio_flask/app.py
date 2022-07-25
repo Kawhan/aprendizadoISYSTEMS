@@ -1,4 +1,5 @@
 from crypt import methods
+import re
 from flask import Flask, redirect, render_template, request, redirect, flash, url_for
 import mysql.connector
 
@@ -25,38 +26,37 @@ def index():
     return render_template('index.html', titulo="Escolha a ação!")
 
 
-@app.route('/cadastro')
-def novo():
-    titulo = 'Novo produto'
-    return render_template('cadastro.html', titulo = titulo)
-
 @app.route('/criar', methods=['POST','GET'])
 def criar():
-    nome = request.form['nome']
-    categoria = request.form['options']
-    
-    if nome != "" and categoria != "" and request.form.get('options') in ['enlatados', 'limpeza', 'comida', 'usaveis']:
-        nome = nome.title().strip()
+    if request.method == 'POST':
+        nome = request.form['nome']
+        categoria = request.form['options']
         
-        
-        
-        produto = Produto(nome, categoria)
-        
-        mycursor = cnx.cursor()
+        if nome != "" and categoria != "" and request.form.get('options') in ['enlatados', 'limpeza', 'comida', 'usaveis']:
+            nome = nome.title().strip()
             
-        sql = "INSERT INTO produtos (produto_nome, produto_categoria) VALUES (%s, %s)"
-        val = (produto.nome, produto.categoria)
+            
+            
+            produto = Produto(nome, categoria)
+            
+            mycursor = cnx.cursor()
+                
+            sql = "INSERT INTO produtos (produto_nome, produto_categoria) VALUES (%s, %s)"
+            val = (produto.nome, produto.categoria)
 
-        mycursor.execute(sql, val)
+            mycursor.execute(sql, val)
+                
+            cnx.commit()
+            mycursor.close()
             
-        cnx.commit()
-        mycursor.close()
-        
-        flash('Produto Cadastrado com sucesso!')
-        return redirect(url_for('index'))
+            flash('Produto Cadastrado com sucesso!')
+            return redirect(url_for('index'))
+        else:
+            flash('Produto não cadastrado!', 'error')
+            return redirect(url_for('index'))
     else:
-        flash('Produto não cadastrado!', 'error')
-        return redirect(url_for('index'))
+        titulo = 'Novo produto'
+        return render_template('cadastro.html', titulo = titulo)
 
 @app.route('/listar')
 def listar():
@@ -70,68 +70,65 @@ def listar():
     
     mycursor.close()
     produto = myresult[0]
-    print(produto[1])
+    # print(produto[1])
 
     return render_template('listar.html',titulo=titulo, myresult=myresult)
 
-@app.route('/apagar')
-def apagar():
-    titulo = 'Apagar produtos'
-    return render_template('/apagar.html',titulo=titulo)
- 
-    
-    
-@app.route('/apagarProduto', methods=['POST'])
+@app.route('/apagarProduto', methods=['POST', "GET"])
 def apagarProduto():
-    nome = request.form['nome']
-    id = request.form['id_produto']
-    print(nome)
-    print(id)
-    
-    mycursor = cnx.cursor()
-    
-    sql = """DELETE FROM produtos WHERE produto_nome = '%s' and produto_id = '%d'""" % (nome, int(id))
-    
-    mycursor.execute(sql)
-    
-    
-    cnx.commit()
-    mycursor.close()
-    
-    flash('Produto apagado com sucesso!')
-    return redirect(url_for('index'))
-    
-@app.route('/editar')
-def editar():
-    titulo = 'Mudar produtos'
-    return render_template('/editar.html',titulo=titulo)
-
-@app.route('/mudar', methods=['POST'])
-def mudar():
-    nome = request.form['nome']
-    categoria = request.form['options']
-    
-    nome_novo = request.form['nome_alterar']
-    categoria_nova = request.form['options_alterar']
-    
-    if (nome != "" and categoria != "" and request.form.get('options') in ['enlatados', 'limpeza', 'comida', 'usaveis']) and (nome_novo != "" and categoria_nova != "" and request.form.get('options_alterar') in ['enlatados', 'limpeza', 'comida', 'usaveis']):
-        nome = nome.title().strip()
-        nome_novo = nome_novo.title().strip()
+    if request.method == 'POST':   
+        nome = request.form['nome']
+        id = request.form['id_produto']
+        print(nome)
+        print(id)
         
         mycursor = cnx.cursor()
-            
-        sql = """UPDATE produtos SET produto_nome = '%s' , produto_categoria = '%s' WHERE produto_nome = '%s' AND produto_categoria = '%s' """ % (nome_novo, categoria_nova, nome, categoria)
         
-
+        sql = """DELETE FROM produtos WHERE produto_nome = '%s' and produto_id = '%d'""" % (nome, int(id))
+        
         mycursor.execute(sql)
-            
+        
+        
         cnx.commit()
         mycursor.close()
         
-        flash('Operação de edição efetuada com sucesso!')
+        flash('Produto apagado com sucesso!')
         return redirect(url_for('index'))
     else:
-        flash('Operação de edição não efetuada!')
-        return redirect(url_for('index'))
+        titulo = 'Apagar produtos'
+        return render_template('/apagar.html',titulo=titulo)
+    
+
+@app.route('/mudar', methods=['POST', "GET"])
+def mudar():
+    if request.method == "POST":
+        nome = request.form['nome']
+        categoria = request.form['options']
+        
+        nome_novo = request.form['nome_alterar']
+        categoria_nova = request.form['options_alterar']
+        
+        if (nome != "" and categoria != "" and request.form.get('options') in ['enlatados', 'limpeza', 'comida', 'usaveis']) and (nome_novo != "" and categoria_nova != "" and request.form.get('options_alterar') in ['enlatados', 'limpeza', 'comida', 'usaveis']):
+            nome = nome.title().strip()
+            nome_novo = nome_novo.title().strip()
+            
+            mycursor = cnx.cursor()
+                
+            sql = """UPDATE produtos SET produto_nome = '%s' , produto_categoria = '%s' WHERE produto_nome = '%s' AND produto_categoria = '%s' """ % (nome_novo, categoria_nova, nome, categoria)
+            
+
+            mycursor.execute(sql)
+                
+            cnx.commit()
+            mycursor.close()
+            
+            flash('Operação de edição efetuada com sucesso!')
+            return redirect(url_for('index'))
+        else:
+            flash('Operação de edição não efetuada!')
+            return redirect(url_for('index'))
+    else:
+        titulo = 'Mudar produtos'
+        return render_template('/editar.html',titulo=titulo)
 
 app.run(debug=True)
