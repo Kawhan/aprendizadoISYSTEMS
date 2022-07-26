@@ -1,0 +1,11 @@
+{% extends 'index.html' %} {% block conteudo %}
+<form action="{{ url_for('criarCategoria', id=id) }}" method="post">
+    <fieldset>
+        <div class="form-group">
+            <label for="nome">Categoria</label>
+            <input type="text" id="categoria" name="categoria" class="form-control" />
+        </div>
+       <button type="submit" class="btn btn-primary btn-salvar">Salvar</button>
+    </fieldset>
+</form>
+{% endblock %}

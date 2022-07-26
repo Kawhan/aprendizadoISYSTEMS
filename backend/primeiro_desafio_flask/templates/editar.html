@@ -1,32 +1,19 @@
 {% extends 'index.html' %} {% block conteudo %}
-<form action="{{ url_for('mudar') }}" method="post">
+<form action="{{ url_for('mudar', id=id) }}" method="post">
     <fieldset>
         <div class="form-group">
-            <label for="nome">Nome do produto que deseja mudar:</label>
+            <label for="nome">Digite um nome:</label>
             <input type="text" id="nome" name="nome" class="form-control" />
         </div>
-        <div class="form-group">
-            <label for="options">Categoria do produto que deseja mudar:</label>
+        <!-- <div class="form-group">
+            <label for="options">Selecione uma categoria:</label>
             <select name="options" id="">
                 <option value="enlatados">enlatados</option>
                 <option value="limpeza">limpeza</option>
                 <option value="comida">comida</option>
                 <option value="usaveis">usaveis</option>
             </select>
-        </div>
-        <div class="form-group">
-            <label for="nome_alterar">Nome novo do produto: </label>
-            <input type="text" id="nome_alterar" name="nome_alterar" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label for="options_alterar">Categoria nova do produto:</label>
-            <select name="options_alterar" id="options_alterar">
-                <option value="enlatados">enlatados</option>
-                <option value="limpeza">limpeza</option>
-                <option value="comida">comida</option>
-                <option value="usaveis">usaveis</option>
-            </select>
-        </div>
+        </div> -->
         <button type="submit" class="btn btn-primary btn-salvar">Salvar</button>
     </fieldset>
 </form>

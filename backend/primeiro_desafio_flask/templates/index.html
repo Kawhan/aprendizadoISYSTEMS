@@ -8,6 +8,10 @@
             rel="stylesheet"
             href="{{ url_for('static', filename='bootstrap.css') }}"
         />
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='style.css') }}"
+        />
     </head>
     <body>
         <div class="container">
@@ -20,10 +24,8 @@
             {% endif %} {% endwith %}
             <div class="page-header">
                 <h1>{{ titulo }}</h1>
-                <a class="btn btn-primary" href="{{ url_for('criar')}}" role="button">Cadastrar Produtos</a>
-                <a class="btn btn-primary" href=" {{ url_for('apagarProduto')}}" role="button">Apagar Produtos</a>
-                <a class="btn btn-primary" href="{{ url_for('mudar') }}" role="button">Editar Produtos</a>
-                <a class="btn btn-primary" href="{{ url_for('listar')}}" role="button">Listar Produtos</a>
+                <a class="btn btn-primary" href="{{ url_for('criar') }}" role="button">Cadastrar Produtos</a>
+                <a class="btn btn-primary" href="{{ url_for('listar') }}" role="button">Listar Produtos</a>
             </div>
             {% block conteudo %} {% endblock %}
         </div>
