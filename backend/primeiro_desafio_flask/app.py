@@ -73,16 +73,10 @@ def listar():
     mycursor = cnx.cursor()
 
     mycursor.execute("SELECT * FROM PRODUTOS JOIN CATEGORIA ON PRODUTOS.ID_CATEGORIA=CATEGORIA.ID_CATEGORIA")
-    
-    # [(1, 'Kawhan', 1, 'TESTE_categoria', 1)]
 
     myresult = mycursor.fetchall()
-    # print(myresult)
-    
 
     mycursor.close()
-    # print(myresult)
-    # print(produto[1])
 
     return render_template('listar.html',titulo=titulo, myresult=myresult)
 
@@ -170,7 +164,6 @@ def listarCategorias():
 def mudarCategoria(id):
     if request.method == "POST":
         nome_novo = request.form['nome']
-        # categoria_nova = request.form['options']
         
        
         nome_novo = nome_novo.title().strip()
@@ -192,7 +185,6 @@ def mudarCategoria(id):
         
         mycursor.execute("SELECT * FROM CATEGORIA WHERE ID_CATEGORIA = '%d'" % (id))
         produto = mycursor.fetchall()
-        # print(produto)
         
         titulo = 'Mudar produtos'
         return render_template('/editarCategoria.html',titulo=titulo, id=id, produto = produto)
