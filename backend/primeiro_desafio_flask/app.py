@@ -9,15 +9,15 @@ app.secret_key = 'secret_key12345'
 
 cnx = mysql.connector.connect(user='root', password='my-teste123',
                               host='localhost',
-                              database='PRODUTOS', port=7070)
+                              database='LOJA', port=7070)
 
 class Produto:
     def __init__(self, nome):
         self.nome = nome
 
 class Categoria:
-    def __init__(self, categoria):
-        self.categoria = categoria
+    def __init__(self, nome):
+        self.nome = nome
 
 lista_categoria = []
 
@@ -25,25 +25,28 @@ lista_categoria = []
 def index():
     return render_template('index.html', titulo="Escolha a ação!")
 
-
-
-
 @app.route('/criar', methods=['POST','GET'])
 def criar():
     if request.method == 'POST':
         nome = request.form['nome']
+        categoria = request.form['options']
         
         if nome != "":
             nome = nome.title().strip()
+            categoria = categoria.title().strip()
             
             produto = Produto(nome)
+            categoria = Categoria(categoria)
              
             mycursor = cnx.cursor()
             
-        
-            sql = """INSERT INTO PRODUTOS (NOME) VALUES ('%s')""" % (produto.nome) 
-        
+            mycursor.execute("SELECT ID_CATEGORIA FROM CATEGORIA WHERE NOME = '%s'" % (categoria.nome))
+            
 
+            myresult = mycursor.fetchall()
+                        
+            sql = """INSERT INTO PRODUTOS (NOME, ID_CATEGORIA) VALUES ('%s', '%d')""" % (produto.nome, myresult[0][0]) 
+            
             mycursor.execute(sql)
                 
             cnx.commit()
@@ -55,15 +58,21 @@ def criar():
             flash('Produto não cadastrado!', 'error')
             return redirect(url_for('index'))
     else:
+        mycursor = cnx.cursor()
+            
+        mycursor.execute("SELECT NOME FROM CATEGORIA")
+        categorias = mycursor.fetchall()
+        # print(categorias)
+        
         titulo = 'Novo produto'
-        return render_template('cadastro.html', titulo = titulo)
+        return render_template('cadastro.html', titulo = titulo, categorias = categorias)
 
 @app.route('/listar')
 def listar():
     titulo = 'Listar produtos'
     mycursor = cnx.cursor()
 
-    mycursor.execute("SELECT * FROM PRODUTOS LEFT OUTER JOIN CATEGORIA ON PRODUTOS.ID = CATEGORIA.id_produto UNION SELECT * FROM PRODUTOS RIGHT OUTER JOIN CATEGORIA ON PRODUTOS.ID = CATEGORIA.id_produto")
+    mycursor.execute("SELECT * FROM PRODUTOS JOIN CATEGORIA ON PRODUTOS.ID_CATEGORIA=CATEGORIA.ID_CATEGORIA")
     
     # [(1, 'Kawhan', 1, 'TESTE_categoria', 1)]
 
@@ -79,34 +88,51 @@ def listar():
 
 @app.route('/apagarProduto/<int:id>', methods=['POST', "GET"])
 def apagarProduto(id):
-    mycursor = cnx.cursor()
+    if request.method == 'POST':
+        userInput = request.form.get("userInput")
         
-    sql = """DELETE FROM PRODUTOS WHERE ID = '%d'""" % (int(id))
+        if userInput == "True":
+            mycursor = cnx.cursor()
         
-    mycursor.execute(sql)
-        
-        
-    cnx.commit()
-    mycursor.close()
-        
-    flash('Produto apagado com sucesso!')
-    return redirect(url_for('index'))
+            sql = """DELETE FROM PRODUTOS WHERE ID_PRODUTO = '%d'""" % (int(id))
+                
+            mycursor.execute(sql)
+                
+                
+            cnx.commit()
+            mycursor.close()
+                
+            flash('Produto apagado com sucesso!')
+            return redirect(url_for('index'))
+        else:
+            flash("Operação cancelada com sucesso!")
+            return redirect(url_for('index'))
+    else:
+        mycursor = cnx.cursor()
 
+        mycursor.execute("SELECT NOME FROM PRODUTOS WHERE ID_PRODUTO = '%d'" % (id))
+    
 
+        produtos = mycursor.fetchall()
+    
 
+        mycursor.close()
+        
+        titulo = 'Confirmação'
+        return render_template('confirm2.html', titulo = titulo , id=id, produto = produtos[0][0])
+    
 
 @app.route('/mudar/<int:id>', methods=['POST', "GET"])
 def mudar(id):
     if request.method == "POST":
         nome_novo = request.form['nome']
-        # categoria_nova = request.form['options']
         
        
         nome_novo = nome_novo.title().strip()
             
         mycursor = cnx.cursor()
                 
-        sql = """UPDATE PRODUTOS SET NOME = '%s' WHERE ID = '%d' """ % (nome_novo, id)
+        sql = """UPDATE PRODUTOS SET NOME = '%s' WHERE ID_PRODUTO = '%d' """ % (nome_novo, id)
             
 
         mycursor.execute(sql)
@@ -117,8 +143,28 @@ def mudar(id):
         flash('Operação de edição efetuada com sucesso!')
         return redirect(url_for('index'))
     else:
+        mycursor = cnx.cursor()
+        
+        mycursor.execute("SELECT * FROM PRODUTOS WHERE ID_PRODUTO = '%d'" % (id))
+        produto = mycursor.fetchall()
+        
         titulo = 'Mudar produtos'
-        return render_template('/editar.html',titulo=titulo, id=id)
+        return render_template('/editar.html',titulo=titulo, id=id, produto = produto[0][1])
+
+
+@app.route('/listarCategorias', methods=['GET'])
+def listarCategorias():
+    titulo = 'Listar Categorias'
+    mycursor = cnx.cursor()
+
+    mycursor.execute("SELECT * FROM CATEGORIA")
+
+    myresult = mycursor.fetchall()
+    
+
+    mycursor.close()
+
+    return render_template('listarCategoria.html',titulo=titulo, myresult=myresult)
 
 @app.route('/mudarCategoria/<int:id>', methods=['POST', "GET"])
 def mudarCategoria(id):
@@ -131,7 +177,7 @@ def mudarCategoria(id):
             
         mycursor = cnx.cursor()
                 
-        sql = """UPDATE CATEGORIA SET NOME = '%s' WHERE id_produto = '%d' """ % (nome_novo, id)
+        sql = """UPDATE CATEGORIA SET NOME = '%s' WHERE ID_CATEGORIA = '%d' """ % (nome_novo, id)
             
 
         mycursor.execute(sql)
@@ -142,26 +188,56 @@ def mudarCategoria(id):
         flash('Operação de edição efetuada com sucesso!')
         return redirect(url_for('index'))
     else:
+        mycursor = cnx.cursor()
+        
+        mycursor.execute("SELECT * FROM CATEGORIA WHERE ID_CATEGORIA = '%d'" % (id))
+        produto = mycursor.fetchall()
+        # print(produto)
+        
         titulo = 'Mudar produtos'
-        return render_template('/editarCategoria.html',titulo=titulo, id=id)
+        return render_template('/editarCategoria.html',titulo=titulo, id=id, produto = produto)
 
 @app.route('/apagarCategoria/<int:id>', methods=['POST', "GET"])
 def apagarCategoria(id):
-    mycursor = cnx.cursor()
+    if request.method == 'POST':
+        userInput = request.form.get("userInput")
         
-    sql = """DELETE FROM CATEGORIA WHERE id_produto = '%d'""" % (int(id))
-        
-    mycursor.execute(sql)
-        
-        
-    cnx.commit()
-    mycursor.close()
-        
-    flash('CATEGORIA apagada com sucesso!')
-    return redirect(url_for('index'))
+        if userInput == "True":
+            try:
+                mycursor = cnx.cursor()
+                    
+                sql = """DELETE FROM CATEGORIA WHERE ID_CATEGORIA = '%d'""" % (int(id))
+                    
+                mycursor.execute(sql)
+                    
+                    
+                cnx.commit()
+                mycursor.close()
+                    
+                flash('CATEGORIA apagada com sucesso!')
+                return redirect(url_for('index'))
+            except:
+                flash('CATEGORIA associada com produto existente, operação cancelada!', 'error')
+                return redirect(url_for('index'))
+        else:
+            flash('Operação cancelada!')
+            return redirect(url_for('index'))
+    else:
+        mycursor = cnx.cursor()
 
-@app.route('/criarCategoria/<int:id>', methods=['GET', 'POST'])
-def criarCategoria(id):
+        mycursor.execute("SELECT NOME FROM CATEGORIA WHERE ID_CATEGORIA = '%d'" % (id))
+
+        categorias = mycursor.fetchall()
+    
+
+        mycursor.close()
+        
+        titulo = 'Confirmação'
+        return render_template('confirm.html', titulo = titulo , id=id, categoria = categorias[0][0])
+   
+
+@app.route('/criarCategoria', methods=['GET', 'POST'])
+def criarCategoria():
     if request.method == 'POST':
         categoria = request.form['categoria']
         
@@ -173,7 +249,7 @@ def criarCategoria(id):
             mycursor = cnx.cursor()
             
         
-            sql = """INSERT INTO CATEGORIA (NOME,id_produto) VALUES ('%s','%d')""" % (categoria.categoria, id) 
+            sql = """INSERT INTO CATEGORIA (NOME) VALUES ('%s')""" % (categoria.nome) 
         
 
             mycursor.execute(sql)
@@ -188,6 +264,6 @@ def criarCategoria(id):
             return redirect(url_for('index'))
     else:
         titulo = 'Nova categoria'
-        return render_template('cadastroCategoria.html', titulo = titulo, id=id)
+        return render_template('cadastroCategoria.html', titulo = titulo)
 
 app.run(debug=True)

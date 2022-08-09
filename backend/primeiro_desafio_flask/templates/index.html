@@ -26,6 +26,8 @@
                 <h1>{{ titulo }}</h1>
                 <a class="btn btn-primary" href="{{ url_for('criar') }}" role="button">Cadastrar Produtos</a>
                 <a class="btn btn-primary" href="{{ url_for('listar') }}" role="button">Listar Produtos</a>
+                <a class="btn btn-primary" href="{{ url_for('criarCategoria') }}" role="button">Cadastrar Categoria</a>
+                <a class="btn btn-primary" href="{{ url_for('listarCategorias') }}" role="button">Listar Categoria</a>
             </div>
             {% block conteudo %} {% endblock %}
         </div>

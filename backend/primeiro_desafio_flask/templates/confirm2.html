@@ -1,0 +1,20 @@
+{% extends 'index.html' %} {% block conteudo %}
+<form action="{{url_for('apagarProduto', id=id)}}" method="post">
+    <h4>Produto escolhido para apagar:</h1>
+    <h5 class="box">{{ produto }}</h5>
+    <input type="hidden" id="userInput" name="userInput"> 
+    <button type="submit" name="free_button" value="free_button" onClick="confirmBooking('{{ booking_slot }}')"> Apagar </button> 
+</form>
+<script>
+    function confirmBooking(elem) {
+        if(confirm('Tem certeza que deseja apagar esse Produto?') == true) {
+            //elem = 1;
+            document.getElementById("userInput").value = "True";
+        }
+        else { 
+             document.getElementById("userInput").value = "False";
+             return 0;
+        }          
+    }
+</script>
+{% endblock %}
