@@ -5,15 +5,14 @@
             <label for="nome">Digite um nome:</label>
             <input type="text" id="nome" name="nome" class="form-control" value="{{ produto }}"/>
         </div>
-        <!-- <div class="form-group">
-            <label for="options">Selecione uma categoria:</label>
+        <div class="form-group">
+            <label for="options">Categoria:</label>
             <select name="options" id="">
-                <option value="enlatados">enlatados</option>
-                <option value="limpeza">limpeza</option>
-                <option value="comida">comida</option>
-                <option value="usaveis">usaveis</option>
+                {% for categoria in categorias %}
+                    <option value="{{ categoria[0] }}">{{ categoria[0] }}</option>
+                {%endfor%}
             </select>
-        </div> -->
+        </div> 
         <button type="submit" class="btn btn-primary btn-salvar">Salvar</button>
     </fieldset>
 </form>

@@ -120,19 +120,32 @@ def apagarProduto(id):
 def mudar(id):
     if request.method == "POST":
         nome_novo = request.form['nome']
+        categoria_nova = request.form['options']
         
        
         nome_novo = nome_novo.title().strip()
-            
+         
+        mycursor = cnx.cursor()
+
+        mycursor.execute("SELECT ID_CATEGORIA FROM CATEGORIA WHERE NOME = '%s'" % (categoria_nova))
+    
+
+        categoria_id = mycursor.fetchall()
+    
+
+        mycursor.close()
+        
+        
         mycursor = cnx.cursor()
                 
-        sql = """UPDATE PRODUTOS SET NOME = '%s' WHERE ID_PRODUTO = '%d' """ % (nome_novo, id)
+        sql = """UPDATE PRODUTOS SET NOME = '%s', ID_CATEGORIA='%d' WHERE ID_PRODUTO = '%d' """ % (nome_novo, categoria_id[0][0], id)
             
 
         mycursor.execute(sql)
-                
+        
         cnx.commit()
         mycursor.close()
+        
             
         flash('Operação de edição efetuada com sucesso!')
         return redirect(url_for('index'))
@@ -142,8 +155,13 @@ def mudar(id):
         mycursor.execute("SELECT * FROM PRODUTOS WHERE ID_PRODUTO = '%d'" % (id))
         produto = mycursor.fetchall()
         
+        mycursor = cnx.cursor()
+            
+        mycursor.execute("SELECT NOME FROM CATEGORIA")
+        categorias = mycursor.fetchall()
+        
         titulo = 'Mudar produtos'
-        return render_template('/editar.html',titulo=titulo, id=id, produto = produto[0][1])
+        return render_template('/editar.html',titulo=titulo, id=id, produto = produto[0][1], categorias=categorias)
 
 
 @app.route('/listarCategorias', methods=['GET'])
