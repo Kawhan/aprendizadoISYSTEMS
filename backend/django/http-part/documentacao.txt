@@ -1,0 +1,9 @@
+HTTP é independente da plataforma de desenvolvimento
+
+
+         CLIENTE-SERVIDOR
+Navegador-------------------Servidor
+
+* Precisamos ter varias regras definidas porque precisamos que esses 2 lados entendam a mesma informação
+* Quando falamos de regras de comunicação no mundo web estamos falando de um protocolo (HTTP)
+* um protocolo nada mais é que um conjunto de regras
