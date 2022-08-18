@@ -1,0 +1,10 @@
+.icons_edit {
+    display: flex;
+    align-self: flex-end;
+}
+
+.box {
+    border: 1px solid black;
+    color: red;
+    width: 300px;
+}
