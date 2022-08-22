@@ -1,28 +1,8 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Gerenciamento de produtos</title>
-       <link
-            rel="stylesheet"
-            href="{% static 'cssFiles/bootstrap.css' %}"
-        />
-        <link
-            rel="stylesheet"
-            href="{% static 'cssFiles/style.css' %}"
-        /> 
-    </head>
-    <body>
-        <div class="container">
-            <div class="page-header">
-                <h1>Página inicial</h1>
-                <a class="btn btn-primary" href="" role="button">Cadastrar Produtos</a>
-                <a class="btn btn-primary" href="" role="button">Listar Produtos</a>
-                <a class="btn btn-primary" href="" role="button">Cadastrar Categoria</a>
-                <a class="btn btn-primary" href="" role="button">Listar Categoria</a>
-            </div>
-        </div>
-    </body>
-</html>
+{% block content %}
+    <div class="container">
+        <h3>Sistema de cadastro de produtos e categoria. Bem vindo ao sistema</h3>
+        <p>O sistema tem como base treinar as habilidades de DJANGO, foi criado um CRUD de categorias e produtos.</p>
+    </div>
+{% endblock %}
