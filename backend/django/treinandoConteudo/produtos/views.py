@@ -15,3 +15,12 @@ def listarProdutos(request):
     }
     
     return render(request,'listarProdutos.html', dados)
+
+def listarCategoria(request):
+    categorias = Categoria.objects.all()
+    
+    dados = {
+        'categorias': categorias
+    }
+    
+    return render(request, 'listarCategoria.html', dados)
