@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <!-- Create a Form -->
+    <form method="POST">
+        <!-- Security token by Django -->
+        {% csrf_token %}
+        <section>
+            <img src="" alt="">
+            <h3>Nome Produto: {{ produto.nome_produto }}</h3>
+            <h3>Categoria: {{  produto.categoria }}</h3>
+            <h6>Data de cadastro: {{ produto.data_cadastro }}</h6>
+            <h6>Validade: {{ produto.validade }} meses</h6>
+            <h6>Código do produto: {{ produto.codigo_produto }}</h6>
+            <h6>Valor: R$ {{ produto.valor }}</h6>
+            <h6>Quantidade em estoque: {{ produto.quantidade_estoque }} unidades.</h6>
+            
+            <div>
+                <h2>Descrição: </h2>
+                <p>{{ produto.descricao }}</p>
+            </div>
+            
+    
+    
+        </section>
+        <h2 class="text-danger">Are you want to delete this item ?</h2>
+        <input type="submit" value="Yes" />
+        <a href="/produtos">Cancel </a>
+    </form>
+</div>
+{% endblock %}

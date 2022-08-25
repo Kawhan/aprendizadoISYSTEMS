@@ -12,7 +12,7 @@ class CategoriaAdmin(admin.ModelAdmin):
 
 @admin.register(Produto)
 class ProdutoAdmin(admin.ModelAdmin):
-    list_display = ['nome_produto', 'categoria']
+    list_display = ['nome_produto', 'categoria', 'data_cadastro', 'codigo_produto']
     search_fields = ['nome_produto', 'categoria__nome_categoria']
     list_per_page = 20
     

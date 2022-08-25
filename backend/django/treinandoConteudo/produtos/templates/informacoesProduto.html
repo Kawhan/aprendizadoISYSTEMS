@@ -1,0 +1,24 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <section>
+            <img src="" alt="">
+            <h2>Nome Produto: {{ produto.nome_produto }}</h2>
+            <h2>Categoria: {{  produto.categoria }}</h2>
+            <h6>Data de cadastro: {{ produto.data_cadastro }}</h6>
+            <h6>Validade: {{ produto.validade }} meses</h6>
+            <h6>Código do produto: {{ produto.codigo_produto }}</h6>
+            <h6>Valor: R$ {{ produto.valor }}</h6>
+            <h6>Quantidade em estoque: {{ produto.quantidade_estoque }} unidades.</h6>
+            
+            <div>
+                <h2>Descrição: </h2>
+                <p>{{ produto.descricao }}</p>
+            </div>
+            
+
+
+        </section>
+    </div>
+{% endblock %}
