@@ -14,3 +14,11 @@ class ProdutoForm(forms.ModelForm):
             "descricao",
             "categoria"
         ]
+
+class CategoriaForm(forms.ModelForm):
+    class Meta:
+        model = Categoria
+        
+        fields = [
+            "nome_categoria"
+        ]

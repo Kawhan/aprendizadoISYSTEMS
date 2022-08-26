@@ -2,7 +2,7 @@ import re
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import Categoria, Produto
-from .forms import ProdutoForm
+from .forms import ProdutoForm, CategoriaForm
 
 # Create your views here.
 def index(request):
@@ -56,7 +56,7 @@ def change_produto(request, produto_id):
     form = ProdutoForm(request.POST or None, instance= produto)
     
     if form.is_valid():
-        print(form.id)
+        # print(form.id)
         form.save()
         return redirect('/produtos')
     
@@ -78,3 +78,19 @@ def delete_produto(request, produto_id):
         return redirect("/produtos")
  
     return render(request, "delete_view.html", context)
+
+# Categoria CRUD
+
+def create_categoria(request):
+    context = {}
+    
+    form = CategoriaForm(request.POST or None)
+    
+    if form.is_valid():
+        form.save()
+        return redirect('/categoria')
+    
+    context["form"] = form
+    
+    return render(request, "create_categoria.html", context)
+    

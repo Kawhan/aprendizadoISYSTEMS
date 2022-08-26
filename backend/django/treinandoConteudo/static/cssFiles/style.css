@@ -11,5 +11,9 @@
 
 .center {
     display: flex;
-    text-align: center;
+    align-items: center;
+}
+
+.container{
+    margin-top: 10px; 
 }
