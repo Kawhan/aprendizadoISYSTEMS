@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-3">
+    <!-- Create a Form -->
+    <form method="POST">
+        <!-- Security token by Django -->
+        {% csrf_token %}
+        <section>
+            <img src="" alt="">
+            <h3>Categoria: {{  categoria.nome_categoria }}</h3>
+    
+        </section>
+        <h2 class="text-danger">Deseja Deletar esse item? </h2>
+        <input type="submit" value="Sim" />
+        <a href="/produtos">Cancelar </a>
+    </form>
+</div>
+{% endblock %}

@@ -1,3 +1,4 @@
+from pydoc import plain
 import re
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
@@ -93,4 +94,43 @@ def create_categoria(request):
     context["form"] = form
     
     return render(request, "create_categoria.html", context)
+
+def change_categoria(request, categoria_id):
+    context ={}
+    categoria = get_object_or_404(Categoria, pk=categoria_id) 
     
+    form = CategoriaForm(request.POST or None, instance= categoria)
+    
+    if form.is_valid():
+        # print(form.id)
+        form.save()
+        return redirect('/categoria')
+    
+    context["form"] = form
+ 
+    return render(request, "update_view_categoria.html", context)
+    
+
+def delete_categoria(request, categoria_id):
+    context ={}
+    categoria = get_object_or_404(Categoria, pk=categoria_id) 
+    
+    context['categoria'] = categoria
+    
+    if request.method =="POST":
+        # delete object
+        categoria.delete()
+        # after deleting redirect to
+        # home page
+        return redirect("/categoria")
+ 
+    return render(request, "delete_view_categoria.html", context)
+
+def view_categoria(request, categoria_id):
+    context = {}
+    
+    categoria = get_object_or_404(Categoria, pk=categoria_id)
+    
+    context['categoria'] = categoria
+    
+    return render(request, 'view_categoria.html', context)
