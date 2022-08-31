@@ -12,7 +12,8 @@ class ProdutoForm(forms.ModelForm):
             "valor",
             "quantidade_estoque",
             "descricao",
-            "categoria"
+            "categoria",
+            "esgotado"
         ]
 
 class CategoriaForm(forms.ModelForm):

@@ -18,6 +18,7 @@ class Produto(models.Model):
     valor = models.DecimalField(max_digits=6, decimal_places=2)
     quantidade_estoque = models.IntegerField()
     descricao = models.TextField()
+    esgotado = models.BooleanField(default=False)
     
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     

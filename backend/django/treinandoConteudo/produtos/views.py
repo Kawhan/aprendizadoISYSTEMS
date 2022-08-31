@@ -11,7 +11,7 @@ def index(request):
 
 
 def listarProdutos(request):
-    produtos = Produto.objects.all()
+    produtos = Produto.objects.filter(esgotado=False)
     
     dados = {
         'produtos': produtos
@@ -134,3 +134,17 @@ def view_categoria(request, categoria_id):
     context['categoria'] = categoria
     
     return render(request, 'view_categoria.html', context)
+
+def search(request):
+    produtos = Produto.objects.filter(esgotado=False)
+    
+    if 'search' in request.GET:
+        search_name = request.GET['search']
+        if search_name:
+            produtos = produtos.filter(nome_produto__icontains=search_name)
+    
+    dados = {
+        'produtos': produtos
+    }
+    
+    return render(request,'search.html', dados)
