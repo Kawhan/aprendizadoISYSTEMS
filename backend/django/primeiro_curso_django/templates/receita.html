@@ -8,25 +8,11 @@
     </div>
 
     <!-- Search Wrapper -->
-    <div class="search-wrapper">
-        <!-- Close Btn -->
-        <div class="close-btn"><i class="fa fa-times" aria-hidden="true"></i></div>
+    {% include 'partials/_busca.html' %}
 
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <form action="{% url 'buscar' %}">
-                        <input type="search" name="buscar" placeholder="O que está procurando...">
-                        <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% include 'partials/_menu.html' %}
 
-    {% include 'partials/menu.html' %}
-
-        <!-- Receipe Post Search -->
+        <!-- Receipe Post Search 
         <div class="receipe-post-search mb-80">
             <div class="container">
                 <form action="#" method="post">
@@ -44,7 +30,7 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </div> -->
 
         <!-- Receipe Slider -->
         <div class="container">
@@ -100,5 +86,5 @@
                 </div>
                 <!-- Ingredientes -->
 
-                {% include 'partials/footer.html'%}
+                {% include 'partials/_footer.html'%}
 {% endblock %}

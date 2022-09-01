@@ -4,6 +4,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import Categoria, Produto
 from .forms import ProdutoForm, CategoriaForm
+from django.contrib.auth.decorators import login_required, user_passes_test
+
 
 # Create your views here.
 def index(request):
@@ -35,8 +37,9 @@ def informacao(request, produto_id):
         'produto': produto
     }
     
-    return render(request, 'informacoesProduto.html', dados)
+    return render(request, 'view-produto.html', dados)
 
+@login_required
 def create_produto(request):
     context  = {}
         
@@ -50,6 +53,7 @@ def create_produto(request):
  
     return render(request, 'create_produto.html', context) 
 
+@login_required
 def change_produto(request, produto_id):
     context ={}
     produto = get_object_or_404(Produto, pk=produto_id) 
@@ -65,6 +69,7 @@ def change_produto(request, produto_id):
  
     return render(request, "update_view.html", context)
 
+@user_passes_test(lambda u: u.is_superuser)
 def delete_produto(request, produto_id):
     context ={}
     produto = get_object_or_404(Produto, pk=produto_id) 
@@ -81,7 +86,7 @@ def delete_produto(request, produto_id):
     return render(request, "delete_view.html", context)
 
 # Categoria CRUD
-
+@login_required
 def create_categoria(request):
     context = {}
     
@@ -95,6 +100,7 @@ def create_categoria(request):
     
     return render(request, "create_categoria.html", context)
 
+@login_required
 def change_categoria(request, categoria_id):
     context ={}
     categoria = get_object_or_404(Categoria, pk=categoria_id) 
@@ -110,7 +116,7 @@ def change_categoria(request, categoria_id):
  
     return render(request, "update_view_categoria.html", context)
     
-
+@user_passes_test(lambda u: u.is_superuser)
 def delete_categoria(request, categoria_id):
     context ={}
     categoria = get_object_or_404(Categoria, pk=categoria_id) 
