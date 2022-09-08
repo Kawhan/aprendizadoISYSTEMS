@@ -2,16 +2,17 @@ from pydoc import plain
 import re
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from .models import Categoria, Produto
-from .forms import ProdutoForm, CategoriaForm
-from django.contrib.auth.decorators import login_required, user_passes_test
+from produtos.models import Categoria, Produto
+from produtos.forms import ProdutoForm, CategoriaForm
+from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 
 
 # Create your views here.
 def index(request):
     return render(request,'index.html')
 
-
+# @permission_required('produto.add_produto', raise_exception=True)
+# @login_required
 def listarProdutos(request):
     produtos = Produto.objects.filter(esgotado=False)
     
@@ -19,7 +20,7 @@ def listarProdutos(request):
         'produtos': produtos
     }
     
-    return render(request,'listarProdutos.html', dados)
+    return render(request,'produtos/listarProdutos.html', dados)
 
 def listarCategoria(request):
     categorias = Categoria.objects.all()
@@ -28,7 +29,7 @@ def listarCategoria(request):
         'categorias': categorias
     }
     
-    return render(request, 'listarCategoria.html', dados)
+    return render(request, 'produtos/listarCategoria.html', dados)
 
 def informacao(request, produto_id):
     produto = get_object_or_404(Produto, pk=produto_id) 
@@ -37,7 +38,7 @@ def informacao(request, produto_id):
         'produto': produto
     }
     
-    return render(request, 'view-produto.html', dados)
+    return render(request, 'produtos/view-produto.html', dados)
 
 @login_required
 def create_produto(request):
@@ -51,7 +52,7 @@ def create_produto(request):
         
     context['form']= form
  
-    return render(request, 'create_produto.html', context) 
+    return render(request, 'produtos/create_produto.html', context) 
 
 @login_required
 def change_produto(request, produto_id):
@@ -67,7 +68,7 @@ def change_produto(request, produto_id):
     
     context["form"] = form
  
-    return render(request, "update_view.html", context)
+    return render(request, "produtos/update_view.html", context)
 
 @user_passes_test(lambda u: u.is_superuser)
 def delete_produto(request, produto_id):
@@ -83,7 +84,7 @@ def delete_produto(request, produto_id):
         # home page
         return redirect("/produtos")
  
-    return render(request, "delete_view.html", context)
+    return render(request, "produtos/delete_view.html", context)
 
 # Categoria CRUD
 @login_required
@@ -98,7 +99,7 @@ def create_categoria(request):
     
     context["form"] = form
     
-    return render(request, "create_categoria.html", context)
+    return render(request, "produtos/create_categoria.html", context)
 
 @login_required
 def change_categoria(request, categoria_id):
@@ -114,7 +115,7 @@ def change_categoria(request, categoria_id):
     
     context["form"] = form
  
-    return render(request, "update_view_categoria.html", context)
+    return render(request, "produtos/update_view_categoria.html", context)
     
 @user_passes_test(lambda u: u.is_superuser)
 def delete_categoria(request, categoria_id):
@@ -130,7 +131,7 @@ def delete_categoria(request, categoria_id):
         # home page
         return redirect("/categoria")
  
-    return render(request, "delete_view_categoria.html", context)
+    return render(request, "produtos/delete_view_categoria.html", context)
 
 def view_categoria(request, categoria_id):
     context = {}
@@ -139,7 +140,7 @@ def view_categoria(request, categoria_id):
     
     context['categoria'] = categoria
     
-    return render(request, 'view_categoria.html', context)
+    return render(request, 'produtos/view_categoria.html', context)
 
 def search(request):
     produtos = Produto.objects.filter(esgotado=False)
@@ -153,4 +154,4 @@ def search(request):
         'produtos': produtos
     }
     
-    return render(request,'search.html', dados)
+    return render(request,'produtos/search.html', dados)
