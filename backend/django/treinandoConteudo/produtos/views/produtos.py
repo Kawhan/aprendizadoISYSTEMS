@@ -5,6 +5,8 @@ from django.http import HttpResponse
 from produtos.models import Categoria, Produto
 from produtos.forms import ProdutoForm, CategoriaForm
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 
 # Create your views here.
@@ -16,8 +18,12 @@ def index(request):
 def listarProdutos(request):
     produtos = Produto.objects.filter(esgotado=False)
     
+    paginator = Paginator(produtos, 5)
+    page = request.GET.get('page')
+    produtos_per_page = paginator.get_page(page)
+    
     dados = {
-        'produtos': produtos
+        'produtos': produtos_per_page
     }
     
     return render(request,'produtos/listarProdutos.html', dados)
@@ -25,8 +31,12 @@ def listarProdutos(request):
 def listarCategoria(request):
     categorias = Categoria.objects.all()
     
+    paginator = Paginator(categorias, 4)
+    page = request.GET.get('page')
+    categoria_per_page = paginator.get_page(page)
+    
     dados = {
-        'categorias': categorias
+        'categorias': categoria_per_page
     }
     
     return render(request, 'produtos/listarCategoria.html', dados)

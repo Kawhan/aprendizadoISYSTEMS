@@ -42,4 +42,32 @@
         </tbody>
     </table>
 </div>
+
+<div class="container">
+    <nav aria-label="Navegação de página exemplo">
+        {% if categorias.has_other_pages %}
+        <ul class="pagination">
+          {% if categorias.has_previous %}
+        	<li class="page-item"><a class="page-link" href="?page={{ categorias.previous_page_number }}">Anterior</a></li>
+          {% else %}
+          <li class="page-item disabled"><a class="page-link">Anterior</a></li>
+          {% endif %} 
+
+          {% for pagina in categorias.paginator.page_range %}
+          {% if categorias.number == pagina %}
+          <li class="page-item"><a class="page-link">{{ pagina }}</a></li>
+          {% else %}
+          <li class="page-item active"><a class="page-link" href="?page={{ pagina }}">{{ pagina }}</a></li>
+          {% endif %}
+          {% endfor %}
+
+          {% if categorias.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ categorias.next_page_number }}">Próximo</a></li>
+          {% else %}
+          <li class="page-item disabled"><a class="page-link" href="">Proximo</a></li>
+          {% endif %}
+        </ul>
+        {% endif %}
+      </nav>
+</div>
 {% endblock %}

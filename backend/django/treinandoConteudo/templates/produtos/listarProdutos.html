@@ -44,5 +44,37 @@
             {% endif%}
         </tbody>
     </table>
+
+
+    
 </div>
+
+<div class="container">
+    <nav aria-label="Navegação de página exemplo">
+        {% if produtos.has_other_pages %}
+        <ul class="pagination">
+          {% if produtos.has_previous %}
+        	<li class="page-item"><a class="page-link" href="?page={{ produtos.previous_page_number }}">Anterior</a></li>
+          {% else %}
+          <li class="page-item disabled"><a class="page-link">Anterior</a></li>
+          {% endif %} 
+
+          {% for pagina in produtos.paginator.page_range %}
+          {% if produtos.number == pagina %}
+          <li class="page-item"><a class="page-link">{{ pagina }}</a></li>
+          {% else %}
+          <li class="page-item active"><a class="page-link" href="?page={{ pagina }}">{{ pagina }}</a></li>
+          {% endif %}
+          {% endfor %}
+
+          {% if produtos.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ produtos.next_page_number }}">Próximo</a></li>
+          {% else %}
+          <li class="page-item disabled"><a class="page-link" href="">Proximo</a></li>
+          {% endif %}
+        </ul>
+        {% endif %}
+      </nav>
+</div>
+
 {% endblock %}
