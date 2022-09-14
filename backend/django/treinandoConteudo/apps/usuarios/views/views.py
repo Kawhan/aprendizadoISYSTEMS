@@ -19,28 +19,28 @@ def cadastro(request):
         
          # Validando se o nome é null
         if not nome.strip():
-            print("O nome não pode ficar em branco")
+            messages.error(request,"O nome não pode ficar em branco")
             return redirect('cadastro')
         
         # Validando se o campo de email não esta em branco
         if not nome.strip():
-            print("O campo email não pode ficar em branco")
+            messages.error(request,"O campo email não pode ficar em branco")
             return redirect('cadastro')
             
         # Validando senha
         if senha != senha2:
-            print("As senhas não são iguais!")
+            messages.error(request, "As senhas não são iguais!")
             return redirect('cadastro')
         
         # Verificar se o usuário que queremos criar está na base de dados
         if User.objects.filter(email=email).exists():
-            print("Usuario já cadastrado")
+            messages.error(request,"Usuario já cadastrado")
             return redirect('cadastro')
         
         user = User.objects.create_user(username=nome, email=email, password=senha)
         
         user.save()
-        print("Usuário cadastrado com sucesso!")
+        messages.sucess(request,"Usuário cadastrado com sucesso!")
         return redirect('login')
     else:
         return render(request, 'usuarios/cadastro.html')
@@ -51,11 +51,11 @@ def login(request):
         senha = request.POST['senha']
         
         if not email.strip():
-            print("O campo email não pode ficar em branco")
+            messages.error(request,"O campo email não pode ficar em branco")
             return redirect('login')
         
         if not senha.strip():
-            print("Senha vazia!")
+            messages.error(request,"Senha vazia!")
             return redirect('login')
         
         # Trazendo as informações desse usuário apartir do email
@@ -66,16 +66,20 @@ def login(request):
             
             if user is not None:
                 auth.login(request, user)
-                print("Login realizado com sucesso!")
+                messages.success(request, "Login realizado com sucesso!")
                 return render(request, 'index.html')
+        else:
+            messages.error(request, 'Está conta não existe.')
+            return render(request, 'usuarios/login.html')
     else:
         if not request.user.is_authenticated:
             return render(request, 'usuarios/login.html')
         else:
-            messages.info(request, 'Você já está logado! Por favor efetue o logout.')
+            messages.error(request, 'Você já está logado! Por favor efetue o logout.')
             return render(request, 'index.html')
 
 def logout(request):
+    messages.success(request, "Logout realizado com sucesso.")
     auth.logout(request)
     return render(request, 'index.html')
     

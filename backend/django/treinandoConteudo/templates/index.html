@@ -1,13 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    {% if messages %}
-    {% for m in messages %}
-        <div class="alert alert-warning" role="alert">
-        {{ m }}
-        </div>
-    {% endfor %}
-    {% endif %}
+    {% include 'partials/_alerts.html' %}
     <div class="container mt-3">
         <h3>Sistema de cadastro de produtos e categoria. Bem vindo ao sistema</h3>
         <p>O sistema tem como base treinar as habilidades de DJANGO, foi criado um CRUD de categorias e produtos.</p>

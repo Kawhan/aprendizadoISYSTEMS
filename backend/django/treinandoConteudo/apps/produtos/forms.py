@@ -1,3 +1,4 @@
+from gc import disable
 from django import forms
 from .models import Categoria, Produto
 
@@ -15,6 +16,13 @@ class ProdutoForm(forms.ModelForm):
             "categoria",
             "esgotado"
         ]
+        
+        labels = {
+            'descricao' : 'Descrição do produto',
+            'codigo_produto' : 'Código produto'
+        }
+        
+        
 
 class CategoriaForm(forms.ModelForm):
     class Meta:
@@ -23,3 +31,5 @@ class CategoriaForm(forms.ModelForm):
         fields = [
             "nome_categoria"
         ]
+        
+       

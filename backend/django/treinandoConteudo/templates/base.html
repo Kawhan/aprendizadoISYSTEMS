@@ -28,15 +28,15 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav">
-                            <a class="nav-link" href="{% url 'produtos' %}">Listar Produtos</a>
-                            <a class="nav-link" href="{% url 'categoria' %}">Listar Categoria</a>
-                            <a class="nav-link" href="{% url 'create_produto' %}">Adicionar Produto</a>
-                            <a class="nav-link" href="{% url 'create_categoria' %}" >Adicionar Categoria</a>
                             {% if user.is_authenticated %}
+                                <a class="nav-link" href="{% url 'produtos' %}">Listar Produtos</a>
+                                <a class="nav-link" href="{% url 'categoria' %}">Listar Categoria</a>
+                                <a class="nav-link" href="{% url 'create_produto' %}">Adicionar Produto</a>
+                                <a class="nav-link" href="{% url 'create_categoria' %}" >Adicionar Categoria</a>
                                 <a class="btn btn-primary" href="{% url 'logout' %}" role="button">Logout</a>
                             {% else %}
                                 <a class="btn btn-primary" href="{% url 'login' %}" role="button">Login</a>
-                                <a class="btn btn-primary" href="{% url 'cadastro' %}" role="button">Cadastrar Usuario</a>
+                                <a class="btn btn-primary mx-3" href="{% url 'cadastro' %}" role="button">Cadastrar Usuario</a>
                             {% endif %}
                         </div>
                         <form class="d-flex" action="{% url 'search' %}">

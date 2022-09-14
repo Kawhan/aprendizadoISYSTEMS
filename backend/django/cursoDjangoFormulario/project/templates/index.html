@@ -16,7 +16,13 @@
                 </section>
             {% endfor %}
             {% endfor %}
+            {% for field in pessoa_form.visible_fields %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field|add_class:'form-control' }}
+                </div>
             <input type="submit" value="Ok" class="btn btn-success">
+            {% endfor %}
         </form>
     </section>
 {% endblock %}

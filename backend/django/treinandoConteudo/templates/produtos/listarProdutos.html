@@ -52,7 +52,7 @@
 <div class="container">
     <nav aria-label="Navegação de página exemplo">
         {% if produtos.has_other_pages %}
-        <ul class="pagination">
+        <ul class="pagination justify-content-center">
           {% if produtos.has_previous %}
         	<li class="page-item"><a class="page-link" href="?page={{ produtos.previous_page_number }}">Anterior</a></li>
           {% else %}
