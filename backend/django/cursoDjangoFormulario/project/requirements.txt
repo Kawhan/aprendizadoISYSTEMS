@@ -1,5 +1,5 @@
 asgiref==3.5.2
-backports.zoneinfo==0.2.1
+backports.zoneinfo==0.2.1;python_version<"3.9"
 Django==4.1.1
 django-tempus-dominus==5.1.2.17
 django-widget-tweaks==1.4.12
