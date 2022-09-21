@@ -2,11 +2,18 @@ from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
+from animais.models import Animal
 
 
 class AnimaisTestCase(LiveServerTestCase):
     # Função responsavel por iniciar nos tests / preparar os testes
     def setUp(self):
+        self.Animal = Animal.objects.create(
+            nome_animal = 'leão',
+            predador = 'Sim',
+            venenoso = 'Não',
+            domestico = 'Não'
+        )
         self.browser = webdriver.Chrome(r'C:\Users\Kawhan Laurindo\Desktop\project\chromedriver.exe')
     
     # Função que é executada depois que executada depois dos metodos de testes serem finalizadas
@@ -31,7 +38,7 @@ class AnimaisTestCase(LiveServerTestCase):
         # Ele pesquisa por Leão e clica no botão pesquisar.
         buscar_animal_input.send_keys('leão')
         # time.sleep(2)
-        self.browser.find_element(By.CSS_SELECTOR, 'form button')
+        self.browser.find_element(By.CSS_SELECTOR, 'form button').click()
 
         # O site exibe 4 caracteristicas do animal pesquisado.
         caracteristicas = self.browser.find_elements(By.CLASS_NAME, 'result-description')
