@@ -1,0 +1,10 @@
+# ATUALIZAR O PIP E INSTALAR TUDO DO REQUIREMENTS.TXT
+python -m pip install --upgrade pip && pip -m pip install -r requirements.txt
+
+
+# fazer as migrações e as migrates
+python manage.py makemigrations --settings=sdv.settings.qa && python manage.py migrate --settings=sdv.settings.qa
+
+# CollectStatic
+python manage.py collectstatic --noinput --settings=sdv.settings.qa && \
+mkdir htmlcov && mkdir htmlcov/cobertura
