@@ -1,5 +1,5 @@
 from django.contrib import admin
-from escola.models import AlunoModel, CursoModel
+from escola.models import AlunoModel, CursoModel, MatriculaModel
 
 
 # Register your models here.
@@ -22,3 +22,12 @@ class CursoAdmin(admin.ModelAdmin):
     list_per_page = 20
     
     pass
+
+@admin.register(MatriculaModel)
+class MatriculaAdmin(admin.ModelAdmin):
+    list_display = ['id', 'aluno', 'curso', 'periodo']
+    list_display_links = ['id', 'aluno',]
+    search_fields = ['aluno','curso']
+    list_filter = ['periodo',]
+    
+    pass   

@@ -30,3 +30,19 @@ class CursoModel(models.Model):
     
     class Meta:
         verbose_name = 'Curso'
+
+class MatriculaModel(models.Model):
+    periodo = (
+        ("M", 'Matutino'),
+        ('V', 'Vespertino'),
+        ("N", 'Noturno')
+    )
+    aluno = models.ForeignKey(AlunoModel, on_delete=models.CASCADE)
+    curso = models.ForeignKey(CursoModel, on_delete=models.CASCADE)
+    periodo = models.CharField(max_length=1, choices=periodo, blank=False, null=False, default='M')
+    
+    class Meta:
+        verbose_name = 'Matricula'
+    
+    def __str__(self):
+        return str(self.aluno) + ' - ' + str(self.curso) + ' - ' + str(self.periodo)

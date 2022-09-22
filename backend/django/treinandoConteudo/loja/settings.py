@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'usuarios',
     'widget_tweaks',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
