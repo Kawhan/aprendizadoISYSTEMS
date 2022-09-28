@@ -36,6 +36,8 @@
                                 <a class="nav-link" href="{% url 'categoria' %}">Listar Categoria</a>
                                 <a class="nav-link" href="{% url 'create_produto' %}">Adicionar Produto</a>
                                 <a class="nav-link" href="{% url 'create_categoria' %}" >Adicionar Categoria</a>
+                                <a class="nav-link" href="{% url 'view_produtos_api' %}" >Página produtos API</a>
+                                <a class="nav-link" href="{% url 'view_categoria_api' %}" >Página Categoria API</a>
                                 <a class="btn btn-primary" href="{% url 'logout' %}" role="button">Logout</a>
                             {% else %}
                                 <a class="btn btn-primary" href="{% url 'login' %}" role="button">Login</a>
