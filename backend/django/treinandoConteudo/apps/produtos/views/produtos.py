@@ -13,7 +13,7 @@ def index(request):
     return render(request,'index.html')
 
 # @permission_required('produto.add_produto', raise_exception=True)
-# @login_required
+@login_required
 def listarProdutos(request):
     produtos = Produto.objects.filter(esgotado=False)
     
@@ -27,6 +27,7 @@ def listarProdutos(request):
     
     return render(request,'produtos/listarProdutos.html', dados)
 
+@login_required
 def listarCategoria(request):
     categorias = Categoria.objects.all()
     
@@ -40,6 +41,7 @@ def listarCategoria(request):
     
     return render(request, 'produtos/listarCategoria.html', dados)
 
+@login_required
 def informacao(request, produto_id):
     produto = get_object_or_404(Produto, pk=produto_id) 
     
@@ -142,6 +144,7 @@ def delete_categoria(request, categoria_id):
  
     return render(request, "produtos/delete_view_categoria.html", context)
 
+@login_required
 def view_categoria(request, categoria_id):
     context = {}
     
@@ -151,6 +154,7 @@ def view_categoria(request, categoria_id):
     
     return render(request, 'produtos/view_categoria.html', context)
 
+@login_required
 def search(request):
     produtos = Produto.objects.filter(esgotado=False)
     
@@ -164,3 +168,28 @@ def search(request):
     }
     
     return render(request,'produtos/search.html', dados)
+
+@login_required
+def create_produtos_api(request):
+    
+    pass
+
+@login_required
+def produtos_view_api(request):
+    context = {}
+    
+    form = ProdutoForm(request.POST or None)
+    
+    context["form"] = form
+    
+    return render(request, 'api_crud/view_produto_api.html', context)
+
+@login_required
+def categoria_view_api(request):
+    context = {}
+    
+    form = CategoriaForm(request.POST or None)
+    
+    context["form"] = form
+    
+    return render(request, "api_crud/view_categoria_api.html", context)

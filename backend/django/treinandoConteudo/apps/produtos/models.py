@@ -12,7 +12,6 @@ class Categoria(models.Model):
 class Produto(models.Model):
     id = models.AutoField(primary_key=True)
     nome_produto = models.CharField(max_length=255)
-    data_cadastro = models.DateTimeField(default=datetime.now, blank=True)
     validade = models.IntegerField()
     codigo_produto = models.CharField(max_length=255)
     valor = models.DecimalField(max_digits=6, decimal_places=2)

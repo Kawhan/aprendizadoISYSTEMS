@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% load widget_tweaks %}
+<section class="container col-6">
+<div class="container">
+    <form method="POST" enctype="multipart/form-data">
+
+        <!-- Security token -->
+        {% csrf_token %}
+
+        <!-- Using the formset -->
+        {% for field in form.visible_fields %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}" class="h5">{{ field.label }}</label>
+                    {% if field == form.esgotado %}
+                    {{ field }}
+                    {% else %}
+                    {{ field|add_class:'form-control' }}
+                    {% endif %}
+                </div>
+        {% endfor %}
+        
+        <button id="submit_test" value="Ok" class="btn btn-success mt-2" onclick="salvar()">Submit</button>
+    </form>
+</div>
+</section>
+
+<script>
+    function salvar() {
+        alert("Salvar")
+    }
+
+</script>
+{% endblock %}

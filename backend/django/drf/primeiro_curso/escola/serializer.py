@@ -16,3 +16,14 @@ class MatriculaSerializer(serializers.ModelSerializer):
     class Meta:
         model = MatriculaModel
         fields = '__all__'
+
+class ListaMatriculasAlunoSerializer(serializers.ModelSerializer):
+    curso = serializers.ReadOnlyField(source='curso.descricao')
+    periodo = serializers.SerializerMethodField()
+   
+
+    class Meta:
+        model =  MatriculaModel
+        fields = ['curso', 'periodo', ]
+    def get_periodo(self, obj):
+        return obj.get_periodo_display()

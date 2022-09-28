@@ -14,4 +14,7 @@ urlpatterns = [
     path('<int:categoria_id>/delete-categoria', delete_categoria, name="delete_categoria" ),
     path('<int:categoria_id>/view-categoria', view_categoria, name="view_categoria"),
     path('search', search, name="search"),
+    path('create-produto-api/', create_produtos_api, name="create_produtos_api"),
+    path('view-produto-api/', produtos_view_api, name="view_produtos_api"),
+    path('view-categoria-api/', categoria_view_api, name="view_categoria_api"),
 ]
