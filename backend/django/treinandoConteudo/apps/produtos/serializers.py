@@ -10,14 +10,14 @@ class CategoriaSerializer(serializers.ModelSerializer):
 class ProdutoSerializer(serializers.ModelSerializer):
     # categoria = serializers.PrimaryKeyRelatedField(queryset=Categoria.objects.all(), many=False)
     # categoria = CategoriaSerializer()
-    # categoria = serializers.(source='categoria.nome_categoria')
+    categoria_nome = serializers.ReadOnlyField(source='categoria.nome_categoria')
     class Meta:
         model = Produto
-        fields = ['id','nome_produto', 'validade', 'codigo_produto', 'valor', 'quantidade_estoque', 'descricao', 'esgotado', 'categoria']
+        fields = ['id','nome_produto', 'validade', 'codigo_produto', 'valor', 'quantidade_estoque', 'descricao', 'esgotado', 'categoria', 'categoria_nome']
     
     def validate(self, data):
-        if not validate_name_product(data['nome_produto']):
-            raise serializers.ValidationError({"nome_produto":"Nome do produto não pode conter números"})
+        # if not validate_name_product(data['nome_produto']):
+        #     raise serializers.ValidationError({"nome_produto":"Nome do produto não pode conter números"})
         if not validate_len_code_product(data['codigo_produto']):
             raise serializers.ValidationError({"codigo_produto":"Codigo do produto invalido, verifique se possui pelo menos 8 caracteres."})
         if not validade_value_product(data['valor']):

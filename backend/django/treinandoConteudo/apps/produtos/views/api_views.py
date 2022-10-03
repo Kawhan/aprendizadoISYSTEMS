@@ -13,7 +13,7 @@ class CategoriaViewSet(viewsets.ModelViewSet):
 
 class ProdutoViewSet(viewsets.ModelViewSet):
     """ Exibir todas os produtos mesmo sendo esgotados """
-    queryset = Produto.objects.all()
+    queryset = Produto.objects.select_related("categoria").all()
     serializer_class = ProdutoSerializer
     authentication_classes = [BasicAuthentication]
     permission_classes = [IsAuthenticated]

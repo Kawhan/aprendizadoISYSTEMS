@@ -33,7 +33,7 @@
                                     <button class="btn btn-primary float-right" onclick="submitForm()">submit</button>
                                 </div>
                                 <div class="w-100">
-                                    <span id="message" class="text-success"></span>
+                                    <span id="message" class="alert alert-sucess"></span>
                                 </div>
                             </div>
                         </div>
@@ -182,6 +182,7 @@
             body:JSON.stringify(payload)
         }).then((res)=>res.json()).then((response)=> {
             clearFormData();
+            document.getElementById('message').innerHTML = response.message;
 
             getData();
         })
@@ -276,11 +277,11 @@
                 }
             )
 
-            location.reload();
+            getData();
         }
         else {
             alert("Cancel delete")
-            location.reload();
+            getData();
         }
         
     }
@@ -291,13 +292,14 @@
         fetch("http://127.0.0.1:8000/api/produtos/").then(
             (res)=>res.json()
         ).then((response)=>{
+            console.log(response)
             var tmpData  = "";
 
             response.forEach((product)=>{
                 console.log(product);
                 tmpData+="<tr>"
                 tmpData+="<td>"+product.nome_produto+"</td>";
-                tmpData+="<td>"+product.categoria+"</td>";
+                tmpData+="<td>"+product.categoria_nome+"</td>";
                 tmpData+="<td><button class='btn btn-primary' onclick='editDataCall(`"+product.id+"`)'>Edit</button></td>";
                 tmpData+="<td><button class='btn btn-danger' onclick='deleteData(`"+product.id+"`)'>Delete</button></td>";
 
