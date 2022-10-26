@@ -54,12 +54,19 @@ void imprimenumero() {
            numbers[3], numbers[4], numbers[5], numbers[6], numbers[7], numbers[8], numbers[9]);
 }
 
-int main(int argc, char **argv)
+int main()
 {
+    
+    char numeros[100000];
+
+   
+    scanf("%s", numeros);
+    
+
     /* Enter your code here. Read input from STDIN. Print output to STDOUT */
-    for (int i = 0; i < strlen(argv[1]); i++)
+    for (int i = 0; i < strlen(numeros); i++)
     {
-        char c = argv[1][i];
+        char c = numeros[i];
         verificanumero(c);
     }
     
