@@ -1,21 +1,22 @@
 #pragma once
+#include "titular.hpp"
 #include <string>
 
 class Conta
 {
     private:
+        static int numeroDeContas;
         std::string numeroConta;
-        std::string cpfTitular;
-        std::string nomeTitular;
+        Titular titular;
 
         float saldo;
 
     public:
-        Conta(std::string numeroConta, std::string nomeTitular, std::string cpfTitular);
+        Conta(std::string numeroConta, Titular titular);
+        ~Conta();
         void sacar(float valorASacar);
         void depositar(float valorADepositar);
         float recuperaSaldo() const;
         std::string recuperaNumeroConta() const;
-        std::string recuperaCpfTitular() const;
-        std::string recuperaNomeTitular() const;
+        int recuperaNumeroContas() const;
 };
