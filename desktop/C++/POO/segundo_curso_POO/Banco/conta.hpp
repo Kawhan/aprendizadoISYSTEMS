@@ -9,12 +9,15 @@ class Conta
         std::string numeroConta;
         Titular titular;
 
+        /* 1 = conta corrente e 2  = conta poupança */
+    
+    protected:
         float saldo;
 
     public:
         Conta(std::string numeroConta, Titular titular);
-        ~Conta();
-        void sacar(float valorASacar);
+        virtual ~Conta();
+        virtual void sacar(float valorASacar);
         void depositar(float valorADepositar);
         float recuperaSaldo() const;
         std::string recuperaNumeroConta() const;

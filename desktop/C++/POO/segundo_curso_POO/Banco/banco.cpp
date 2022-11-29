@@ -4,22 +4,32 @@
 #include "titular.hpp"
 #include "cpf.hpp"
 #include "funcionario.hpp"
+#include "contaPoupanca.hpp"
 
 using namespace std;
+
+void RealizaSaque(Conta& conta) {
+    conta.sacar(200);
+}
 
 int main() 
 {
     Titular titular (CPF("123.456.789.0") , "Kawhann");
-    Conta umaConta("123456", titular);
+    ContaPoupanca umaConta("123456", titular);
 
     umaConta.depositar(500);
 
-    umaConta.sacar(200);
+    RealizaSaque(umaConta);
+
+    cout << umaConta.recuperaSaldo() << endl;
+
+    
 
     Titular titular2 (CPF("000.000.000.0") , "testee");
     Conta umaConta2("23456", titular2);
 
     umaConta2.depositar(500);
+    RealizaSaque(umaConta2);
 
     Titular titular3 (CPF("000.000.000.0") , "testeee");
     Conta umaConta3("23456", titular3);
