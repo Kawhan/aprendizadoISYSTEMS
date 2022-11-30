@@ -2,11 +2,11 @@
 
 #include "conta.hpp" 
 
-class ContaPoupanca: public Conta {
+class ContaPoupanca final: public Conta {
     public:
 
 
     public:
         ContaPoupanca(std::string numeroConta, Titular titular);
-        virtual void sacar (float valorASacar) override;
+        float taxaDeSaque() const override;
 };

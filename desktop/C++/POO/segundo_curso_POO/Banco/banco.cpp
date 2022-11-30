@@ -5,6 +5,7 @@
 #include "cpf.hpp"
 #include "funcionario.hpp"
 #include "contaPoupanca.hpp"
+#include "contaCorrente.hpp"
 
 using namespace std;
 
@@ -26,13 +27,13 @@ int main()
     
 
     Titular titular2 (CPF("000.000.000.0") , "testee");
-    Conta umaConta2("23456", titular2);
+    ContaCorrente umaConta2("23456", titular2);
 
     umaConta2.depositar(500);
     RealizaSaque(umaConta2);
 
     Titular titular3 (CPF("000.000.000.0") , "testeee");
-    Conta umaConta3("23456", titular3);
+    ContaCorrente umaConta3("23456", titular3);
 
     umaConta3.depositar(500);
 

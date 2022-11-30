@@ -17,9 +17,10 @@ class Conta
     public:
         Conta(std::string numeroConta, Titular titular);
         virtual ~Conta();
-        virtual void sacar(float valorASacar);
+        void sacar(float valorASacar);
         void depositar(float valorADepositar);
         float recuperaSaldo() const;
         std::string recuperaNumeroConta() const;
         int recuperaNumeroContas() const;
+        virtual float taxaDeSaque() const = 0;
 };
