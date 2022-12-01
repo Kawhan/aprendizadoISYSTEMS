@@ -4,6 +4,10 @@ Funcionario::Funcionario(CPF cpf, std::string nome, float salario): Pessoa(cpf, 
 
 }
 
-std::string Funcionario::RecuperaNome() {
+std::string Funcionario::RecuperaNome() const{
     return nome;
+}
+
+float Funcionario::recuperaSalario() const {
+    return salario;
 }

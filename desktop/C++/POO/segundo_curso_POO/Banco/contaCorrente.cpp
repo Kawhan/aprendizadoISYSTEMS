@@ -7,3 +7,8 @@ ContaCorrente::ContaCorrente(std::string numeroConta, Titular titular): Conta(nu
 float ContaCorrente::taxaDeSaque() const {
     return 0.05;
 }
+
+void ContaCorrente::trasferePara(Conta& destino, float valor) {
+    sacar(valor);
+    destino.depositar(valor);
+}
