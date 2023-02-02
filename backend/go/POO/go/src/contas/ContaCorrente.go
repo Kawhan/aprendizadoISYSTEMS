@@ -1,7 +1,11 @@
 package contas
 
+import (
+	t "myProject/src/cliente"
+)
+
 type ContaCorrente struct {
-	Titular       string
+	Titular       t.Titular
 	NumeroAgencia int
 	NumeroConta   int
 	Saldo         float64
@@ -27,7 +31,9 @@ func (c *ContaCorrente) Depositar(valorDoDeposito float64) (string, float64) {
 	}
 }
 
-func (c *ContaCorrente) Transferir(valorDaTransferencia float64, contaDestino *ContaCorrente) bool {
+func (c *ContaCorrente) Transferir(valorDaTransferencia float64,
+	contaDestino *ContaCorrente,
+) bool {
 	if valorDaTransferencia < c.Saldo && valorDaTransferencia >= 0 {
 		c.Saldo -= valorDaTransferencia
 		contaDestino.Depositar(valorDaTransferencia)
