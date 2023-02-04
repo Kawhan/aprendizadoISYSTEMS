@@ -4,9 +4,10 @@ from escola.serializer import (AlunoSerializer, AlunoSerializerV2,
                                ListAlunosMatriculadosCursoSerializer,
                                ListaMatriculasAlunoSerializer,
                                MatriculaSerializer)
-from rest_framework import generics, viewsets
+from rest_framework import generics, status, viewsets
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import DjangoModelPermissions, IsAuthenticated
+from rest_framework.response import Response
 
 
 class AlunosViewSet(viewsets.ModelViewSet):
@@ -26,6 +27,15 @@ class CursosViewSet(viewsets.ModelViewSet):
     queryset = Curso.objects.all()
     serializer_class = CursoSerializer
     authentication_classes = [BasicAuthentication]
+
+    def create(self, request):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            response = Response(serializer.data, status.HTTP_201_CREATED)
+            id = str(serializer.data['id'])
+            response['Location'] = request.build_absolute_uri() + id
+            return response
 
 
 class MatriculaViewSet(viewsets.ModelViewSet):
