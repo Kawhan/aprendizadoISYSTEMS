@@ -31,12 +31,12 @@ func (repo *ProdutosRepository) BuscaProdutos() []m.Produto {
 			panic(err.Error())
 		}
 
+		p.Id = id
 		p.Nome = nome
 		p.Descricao = descricao
 		p.Preco = preco
 		p.Quantidade = quantidade
 		produtos = append(produtos, p)
-
 	}
 
 	return produtos
