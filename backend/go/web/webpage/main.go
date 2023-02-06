@@ -2,51 +2,23 @@ package main
 
 import (
 	"net/http"
-	"text/template"
+	c "test/controlers"
+	db "test/db"
+	"test/repository"
+	r "test/routes"
 )
 
-type Produto struct {
-	Nome       string
-	Descricao  string
-	Preco      float64
-	Quantidade int
-}
-
-var temp = template.Must(template.ParseGlob("templates/*.html"))
-
 func main() {
-	http.HandleFunc("/", index)
+	db := db.ConectaComBancoDeDados()
 
-	http.ListenAndServe(":8000", nil)
-}
-
-func index(w http.ResponseWriter, r *http.Request) {
-	produtos := []Produto{
-		{
-			Nome:       "Camiseta",
-			Descricao:  "Azul bem bonita",
-			Preco:      39,
-			Quantidade: 5,
-		},
-		{
-			"Tenis",
-			"Confortavel",
-			89,
-			3,
-		},
-		{
-			"Fone",
-			"Muito bom",
-			59,
-			2,
-		},
-		{
-			"Produto Novo",
-			"Muito legal",
-			1.99,
-			1,
+	server := c.Database{
+		ProductRepository: repository.ProdutosRepository{
+			TableName: "produtos",
+			Client:    db,
 		},
 	}
+	r.CarregaRotas(&server)
+	http.ListenAndServe(":8000", nil)
 
-	temp.ExecuteTemplate(w, "index", produtos)
+	db.Close()
 }
