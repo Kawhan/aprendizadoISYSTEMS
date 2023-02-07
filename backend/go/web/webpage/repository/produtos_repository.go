@@ -51,3 +51,13 @@ func (repo *ProdutosRepository) Insert(nome string, descricao string, preco_cove
 
 	insert.Exec(nome, descricao, preco_covertido, quantidadeConvertida)
 }
+
+func (repo *ProdutosRepository) Delete(id string) {
+	delete, err := repo.Client.Prepare("delete from produtos where id=$1")
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	delete.Exec(id)
+}

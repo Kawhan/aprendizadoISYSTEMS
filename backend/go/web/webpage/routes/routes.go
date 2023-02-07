@@ -10,4 +10,5 @@ func CarregaRotas(server *c.Database) {
 	http.HandleFunc("/", server.Index)
 	http.HandleFunc("/new", server.New)
 	http.HandleFunc("/insert", server.Insert)
+	http.HandleFunc("/delete", server.Delete)
 }

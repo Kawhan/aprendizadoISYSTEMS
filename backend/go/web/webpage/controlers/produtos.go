@@ -49,3 +49,9 @@ func (s *Database) Insert(w http.ResponseWriter, r *http.Request) {
 	}
 	http.Redirect(w, r, "/", 301)
 }
+
+func (s *Database) Delete(w http.ResponseWriter, r *http.Request) {
+	idDoProduto := r.URL.Query().Get("id")
+	s.ProductRepository.Delete(idDoProduto)
+	http.Redirect(w, r, "/", 301)
+}
