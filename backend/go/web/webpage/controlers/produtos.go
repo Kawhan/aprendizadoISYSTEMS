@@ -15,10 +15,7 @@ type Database struct {
 var temp = template.Must(template.ParseGlob("templates/*.html"))
 
 func (s *Database) Index(w http.ResponseWriter, r *http.Request) {
-	// produtos := models.BuscaProdutos()
 	produtos := s.ProductRepository.BuscaProdutos()
-
-	// fmt.Println(produtos)
 	temp.ExecuteTemplate(w, "index", produtos)
 }
 
