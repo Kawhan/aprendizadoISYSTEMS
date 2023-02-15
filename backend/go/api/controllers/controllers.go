@@ -15,6 +15,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 }
 
 func TodasPersonalidades(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-type", "application/json")
 	var p []models.Personalidade
 	database.DB.Find(&p)
 
@@ -22,6 +23,7 @@ func TodasPersonalidades(w http.ResponseWriter, r *http.Request) {
 }
 
 func RetornaUmaPersonalidade(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-type", "application/json")
 	vars := mux.Vars(r)
 	id := vars["id"]
 	var perso models.Personalidade
@@ -43,5 +45,16 @@ func DeletaUmaPersonalidade(w http.ResponseWriter, r *http.Request) {
 	var perso models.Personalidade
 
 	database.DB.Delete(&perso, id)
+	json.NewEncoder(w).Encode(perso)
+}
+
+func EditaPersonalidade(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+	var perso models.Personalidade
+
+	database.DB.First(&perso, id)
+	json.NewDecoder(r.Body).Decode(&perso)
+	database.DB.Save(&perso)
 	json.NewEncoder(w).Encode(perso)
 }
