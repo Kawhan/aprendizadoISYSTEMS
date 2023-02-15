@@ -15,7 +15,6 @@ func Home(w http.ResponseWriter, r *http.Request) {
 }
 
 func TodasPersonalidades(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-type", "application/json")
 	var p []models.Personalidade
 	database.DB.Find(&p)
 
@@ -23,7 +22,6 @@ func TodasPersonalidades(w http.ResponseWriter, r *http.Request) {
 }
 
 func RetornaUmaPersonalidade(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-type", "application/json")
 	vars := mux.Vars(r)
 	id := vars["id"]
 	var perso models.Personalidade
